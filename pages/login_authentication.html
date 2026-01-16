@@ -1,0 +1,308 @@
+!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Transporte360</title>
+    <link rel="stylesheet" href="../css/main.css">
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransporte1153back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background min-h-screen flex items-center justify-center p-4">
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 z-0 opacity-5">
+        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1" class="text-primary"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)"/>
+        </svg>
+    </div>
+
+    <!-- Login Container -->
+    <div class="relative z-10 w-full max-w-md">
+        <!-- Company Branding -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center mb-4">
+                <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="64" height="64" rx="12" fill="#1E3A5F"/>
+                    <path d="M16 32L32 20L48 32M20 36V44C20 45.1046 20.8954 46 22 46H42C43.1046 46 44 45.1046 44 44V36" stroke="#E67E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="32" cy="32" r="4" fill="#E67E22"/>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-heading font-bold text-primary mb-2">Transporte360</h1>
+            <p class="text-text-secondary font-caption">Sistema de Gestión de Flotas</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="card">
+            <div class="mb-6">
+                <h2 class="text-2xl font-heading font-semibold text-primary mb-2">Iniciar Sesión</h2>
+                <p class="text-text-secondary text-sm">Ingrese sus credenciales para acceder al sistema</p>
+            </div>
+
+            <!-- Error Message Container -->
+            <div id="errorMessage" class="hidden mb-4 p-4 bg-error-50 border border-error-200 rounded-lg">
+                <div class="flex items-start gap-3">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_192840b93-1764821428515.png" alt="Icono de error" class="w-5 h-5 mt-0.5 flex-shrink-0">
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-error-700" id="errorText">Credenciales incorrectas</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-5">
+                <!-- Username Field -->
+                <div>
+                    <label for="username" class="input-label">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a22c4d82-1766504541083.png" alt="Icono de usuario" class="w-4 h-4">
+                            Nombre de Usuario
+                        </span>
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username"
+                            class="input pl-11" 
+                            placeholder="Ingrese su nombre de usuario"
+                            required
+                            autocomplete="username"
+                        >
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a22c4d82-1766504541083.png" alt="Icono de usuario" class="w-5 h-5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIN Field -->
+                <div>
+                    <label for="pin" class="input-label">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_14b14059a-1767300187376.png" alt="Icono de PIN" class="w-4 h-4">
+                            PIN de Acceso
+                        </span>
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="pin" 
+                            name="pin"
+                            class="input pl-11 pr-11 font-data tracking-widest" 
+                            placeholder="••••"
+                            maxlength="4"
+                            pattern="[0-9]{4}"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1333ac006-1766967796857.png" alt="Icono de candado" class="w-5 h-5">
+                        </div>
+                        <button 
+                            type="button" 
+                            id="togglePin"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 focus-ring rounded p-1 hover:bg-primary-50 transition-colors"
+                            aria-label="Mostrar/Ocultar PIN"
+                        >
+                            <img id="eyeIcon" src="https://images.unsplash.com/photo-1603901985879-887f435c7d4b" alt="Mostrar PIN" class="w-5 h-5">
+                        </button>
+                    </div>
+                    <p class="text-xs text-text-tertiary mt-1 font-caption">Ingrese su PIN de 4 dígitos</p>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="flex items-center">
+                    <input 
+                        type="checkbox" 
+                        id="rememberMe" 
+                        name="rememberMe"
+                        class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500"
+                    >
+                    <label for="rememberMe" class="ml-2 text-sm text-text-secondary cursor-pointer">
+                        Recordar mis credenciales
+                    </label>
+                </div>
+
+                <!-- Login Button -->
+                <button 
+                    type="submit" 
+                    id="loginButton"
+                    class="btn btn-primary w-full flex items-center justify-center gap-2"
+                >
+                    <span id="loginButtonText">Iniciar Sesión</span>
+                    <img id="loginIcon" src="https://img.rocket.new/generatedImages/rocket_gen_img_19080cfc2-1765045857947.png" alt="Icono de inicio de sesión" class="w-5 h-5">
+                    <svg id="loadingSpinner" class="hidden animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Help Text -->
+            <div class="mt-6 pt-6 border-t border-border-light">
+                <div class="flex items-start gap-3 text-sm text-text-secondary">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1be6adee5-1766529787000.png" alt="Icono de información" class="w-5 h-5 flex-shrink-0 mt-0.5">
+                    <div>
+                        <p class="mb-2">
+                            <strong class="text-text-primary">Requisitos del Sistema:</strong><br>
+                            Navegador actualizado con JavaScript habilitado
+                        </p>
+                        <p>
+                            <strong class="text-text-primary">¿Problemas para acceder?</strong><br>
+                            Contacte al administrador del sistema para asistencia
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6 text-sm text-text-tertiary font-caption">
+            <p>© 2026 Transporte360. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <script>
+        // Mock user credentials for demonstration
+        const mockUsers = {
+            'manager': { pin: '1234', role: 'manager', name: 'Carlos Rodríguez' },
+            'driver1': { pin: '5678', role: 'driver', name: 'Miguel Fernández' },
+            'driver2': { pin: '9012', role: 'driver', name: 'Ana Martínez' }
+        };
+
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const pinInput = document.getElementById('pin');
+        const togglePinButton = document.getElementById('togglePin');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const loginButton = document.getElementById('loginButton');
+        const loginButtonText = document.getElementById('loginButtonText');
+        const loginIcon = document.getElementById('loginIcon');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+
+        // Toggle PIN visibility
+        togglePinButton.addEventListener('click', () => {
+            const type = pinInput.type === 'password' ? 'text' : 'password';
+            pinInput.type = type;
+            
+            if (type === 'text') {
+                eyeIcon.src = 'https://api.iconify.design/mdi:eye-off-outline.svg?color=%23718096';
+                eyeIcon.alt = 'Ocultar PIN';
+            } else {
+                eyeIcon.src = 'https://api.iconify.design/mdi:eye-outline.svg?color=%23718096';
+                eyeIcon.alt = 'Mostrar PIN';
+            }
+        });
+
+        // PIN input validation - only numbers
+        pinInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        // Hide error message on input
+        [usernameInput, pinInput].forEach(input => {
+            input.addEventListener('input', () => {
+                errorMessage.classList.add('hidden');
+            });
+        });
+
+        // Form submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            const pin = pinInput.value.trim();
+
+            // Validate inputs
+            if (!username || !pin) {
+                showError('Por favor, complete todos los campos');
+                return;
+            }
+
+            if (pin.length !== 4) {
+                showError('El PIN debe tener 4 dígitos');
+                return;
+            }
+
+            // Show loading state
+            setLoadingState(true);
+
+            // Simulate API call delay
+            setTimeout(() => {
+                // Check credentials
+                const user = mockUsers[username];
+                
+                if (user && user.pin === pin) {
+                    // Successful login
+                    sessionStorage.setItem('user', JSON.stringify({
+                        username: username,
+                        role: user.role,
+                        name: user.name
+                    }));
+
+                    // Redirect based on role
+                    if (user.role === 'manager') {
+                        window.location.href = 'manager_dashboard.html';
+                    } else {
+                        window.location.href = 'trip_management.html';
+                    }
+                } else {
+                    // Failed login
+                    setLoadingState(false);
+                    showError('Nombre de usuario o PIN incorrecto');
+                    pinInput.value = '';
+                    pinInput.focus();
+                }
+            }, 1500);
+        });
+
+        // Show error message
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+            
+            // Scroll to error message
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Set loading state
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                loginButton.disabled = true;
+                loginButton.classList.add('opacity-75', 'cursor-not-allowed');
+                loginButtonText.textContent = 'Verificando...';
+                loginIcon.classList.add('hidden');
+                loadingSpinner.classList.remove('hidden');
+            } else {
+                loginButton.disabled = false;
+                loginButton.classList.remove('opacity-75', 'cursor-not-allowed');
+                loginButtonText.textContent = 'Iniciar Sesión';
+                loginIcon.classList.remove('hidden');
+                loadingSpinner.classList.add('hidden');
+            }
+        }
+
+        // Check if user is already logged in
+        window.addEventListener('DOMContentLoaded', () => {
+            const user = sessionStorage.getItem('user');
+            if (user) {
+                const userData = JSON.parse(user);
+                if (userData.role === 'manager') {
+                    window.location.href = 'manager_dashboard.html';
+                } else {
+                    window.location.href = 'trip_management.html';
+                }
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
