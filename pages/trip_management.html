@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Viajes - Transporte360</title>
+    <link rel="stylesheet" href="../css/main.css">
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransporte1153back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-surface border-b border-border-light sticky top-0 z-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center gap-3">
+                    <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="64" height="64" rx="12" fill="#1E3A5F"/>
+                        <path d="M16 32L32 20L48 32M20 36V44C20 45.1046 20.8954 46 22 46H42C43.1046 46 44 45.1046 44 44V36" stroke="#E67E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="32" cy="32" r="4" fill="#E67E22"/>
+                    </svg>
+                    <div>
+                        <h1 class="text-lg font-heading font-bold text-primary">Transporte360</h1>
+                        <p class="text-xs text-text-tertiary font-caption">Gestión de Viajes</p>
+                    </div>
+                </div>
+
+                <!-- User Info and Actions -->
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:block text-right">
+                        <p class="text-sm font-medium text-text-primary" id="userName">Cargando...</p>
+                        <p class="text-xs text-text-tertiary font-caption" id="userRole">Usuario</p>
+                    </div>
+                    <button id="logoutBtn" class="btn-outline h-10 px-4 text-sm flex items-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_192fcb176-1765701301674.png" alt="Cerrar sesión" class="w-4 h-4">
+                        <span class="hidden sm:inline">Cerrar Sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="bg-surface border-b border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex gap-1 overflow-x-auto py-2" id="mainNav">
+                <!-- Navigation items will be populated by JavaScript based on user role -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <!-- Page Header -->
+        <div class="mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold text-primary mb-2">Gestión de Viajes</h2>
+                    <p class="text-text-secondary">Registre y consulte los viajes realizados</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="toggleViewBtn" class="btn-outline h-10 px-4 text-sm flex items-center gap-2">
+                        <img id="viewIcon" src="https://images.unsplash.com/photo-1644804622202-45ea7f63c9f9" alt="Cambiar vista" class="w-4 h-4">
+                        <span id="viewText">Ver Lista</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Trip Entry Form -->
+            <div class="lg:col-span-1">
+                <div class="card sticky top-24">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-heading font-semibold text-primary">Nuevo Viaje</h3>
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_106bc4fe1-1767300181150.png" alt="Icono de nuevo viaje" class="w-6 h-6">
+                    </div>
+
+                    <form id="tripForm" class="space-y-5">
+                        <!-- Trip Type Selection -->
+                        <div>
+                            <label class="input-label">Tipo de Viaje</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button type="button" class="trip-type-btn active" data-type="loaded">
+                                    <img src="https://images.unsplash.com/photo-1712476301828-fcd88cf2f900" alt="Viaje cargado" class="w-5 h-5">
+                                    <span>Cargado</span>
+                                </button>
+                                <button type="button" class="trip-type-btn" data-type="empty">
+                                    <img src="https://images.unsplash.com/photo-1673505705678-6d3cda1d69da" alt="Viaje vacío" class="w-5 h-5">
+                                    <span>Vacío</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="tripType" name="tripType" value="loaded" required>
+                        </div>
+
+                        <!-- Date -->
+                        <div>
+                            <label for="tripDate" class="input-label">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_12b3c411e-1767116048101.png" alt="Icono de fecha" class="w-4 h-4">
+                                    Fecha del Viaje
+                                </span>
+                            </label>
+                            <input type="date" id="tripDate" name="tripDate" class="input" required>
+                        </div>
+
+                        <!-- Truck Selection -->
+                        <div>
+                            <label for="truckId" class="input-label">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_168a2a1fb-1766817002953.png" alt="Icono de camión" class="w-4 h-4">
+                                    Camión
+                                </span>
+                            </label>
+                            <select id="truckId" name="truckId" class="input" required>
+                                <option value="">Seleccione un camión</option>
+                            </select>
+                        </div>
+
+                        <!-- Origin -->
+                        <div>
+                            <label for="origin" class="input-label">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1088ed62d-1767300172396.png" alt="Icono de origen" class="w-4 h-4">
+                                    Origen
+                                </span>
+                            </label>
+                            <input type="text" id="origin" name="origin" class="input" placeholder="Ciudad o dirección de origen" required>
+                        </div>
+
+                        <!-- Destination -->
+                        <div>
+                            <label for="destination" class="input-label">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_18ae937e3-1767300172536.png" alt="Icono de destino" class="w-4 h-4">
+                                    Destino
+                                </span>
+                            </label>
+                            <input type="text" id="destination" name="destination" class="input" placeholder="Ciudad o dirección de destino" required>
+                        </div>
+
+                        <!-- Distance -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label for="kmStart" class="input-label">
+                                    <span class="flex items-center gap-2">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10e56f5f4-1766516152559.png" alt="Icono de kilómetros" class="w-4 h-4">
+                                        Km Inicio
+                                    </span>
+                                </label>
+                                <input type="number" id="kmStart" name="kmStart" class="input font-data" placeholder="0" min="0" step="1" required>
+                            </div>
+                            <div>
+                                <label for="kmEnd" class="input-label">
+                                    <span class="flex items-center gap-2">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10e56f5f4-1766516152559.png" alt="Icono de kilómetros" class="w-4 h-4">
+                                        Km Final
+                                    </span>
+                                </label>
+                                <input type="number" id="kmEnd" name="kmEnd" class="input font-data" placeholder="0" min="0" step="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Distance Calculation Display -->
+                        <div class="bg-primary-50 rounded-lg p-4 border border-primary-200">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-text-secondary">Distancia Total</span>
+                                <span class="text-2xl font-heading font-bold text-primary font-data" id="totalDistance">0 km</span>
+                            </div>
+                        </div>
+
+                        <!-- Revenue Display (for loaded trips) -->
+                        <div id="revenueDisplay" class="bg-accent-50 rounded-lg p-4 border border-accent-200">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-text-secondary">Ingresos Estimados</span>
+                                <span class="text-2xl font-heading font-bold text-accent font-data" id="estimatedRevenue">0,00 €</span>
+                            </div>
+                        </div>
+
+                        <!-- CMR File Upload (only for loaded trips) -->
+                        <div id="cmrUploadSection">
+                            <label class="input-label">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1722ee99f-1767300172245.png" alt="Icono de documento" class="w-4 h-4">
+                                    Documento CMR
+                                    <span class="text-error-600">*</span>
+                                </span>
+                            </label>
+                            <div id="dropZone" class="border-2 border-dashed border-border rounded-lg p-6 text-center cursor-pointer transition-all hover:border-primary hover:bg-primary-50">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1bcf67d9b-1766986260490.png" alt="Icono de subir archivo" class="w-12 h-12 mx-auto mb-3">
+                                <p class="text-sm text-text-secondary mb-2">
+                                    <span class="text-primary font-medium">Haga clic para seleccionar</span> o arrastre el archivo aquí
+                                </p>
+                                <p class="text-xs text-text-tertiary">PDF, JPG o PNG (máx. 10MB)</p>
+                                <input type="file" id="cmrFile" name="cmrFile" accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+                            </div>
+                            <div id="filePreview" class="hidden mt-3 p-3 bg-success-50 border border-success-200 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13ca581ab-1765280843487.png" alt="Archivo seleccionado" class="w-5 h-5">
+                                        <div>
+                                            <p class="text-sm font-medium text-success-700" id="fileName">archivo.pdf</p>
+                                            <p class="text-xs text-success-600" id="fileSize">0 KB</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="removeFile" class="focus-ring rounded p-1 hover:bg-success-100 transition-colors">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_148fcdd0a-1766618026197.png" alt="Eliminar archivo" class="w-5 h-5">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notes -->
+                        <div>
+                            <label for="notes" class="input-label">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1087faa2f-1767127473157.png" alt="Icono de notas" class="w-4 h-4">
+                                    Notas (Opcional)
+                                </span>
+                            </label>
+                            <textarea id="notes" name="notes" class="input min-h-[80px] py-3" placeholder="Observaciones adicionales sobre el viaje"></textarea>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="flex gap-3 pt-4">
+                            <button type="submit" class="btn btn-primary flex-1 flex items-center justify-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1060fc2e2-1765058708702.png" alt="Guardar" class="w-5 h-5">
+                                <span>Guardar Viaje</span>
+                            </button>
+                            <button type="button" id="resetForm" class="btn btn-outline flex items-center justify-center gap-2">
+                                <img src="https://images.unsplash.com/photo-1653163047826-fd7b37499131" alt="Limpiar" class="w-5 h-5">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Trip History Listing -->
+            <div class="lg:col-span-2">
+                <div class="card">
+                    <!-- Filters and Search -->
+                    <div class="mb-6">
+                        <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                            <div class="flex-1">
+                                <div class="relative">
+                                    <input type="text" id="searchTrips" class="input pl-11" placeholder="Buscar por origen, destino o camión...">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_12c739fa3-1767001752220.png" alt="Buscar" class="w-5 h-5">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button id="filterBtn" class="btn-outline h-12 px-4 flex items-center gap-2">
+                                    <img src="https://images.unsplash.com/photo-1582816299240-2135cd671350" alt="Filtrar" class="w-5 h-5">
+                                    <span class="hidden sm:inline">Filtros</span>
+                                </button>
+                                <button id="resetFilters" class="btn-outline h-12 px-4 flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_18ce6862f-1766529782252.png" alt="Limpiar filtros" class="w-5 h-5">
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Filter Panel -->
+                        <div id="filterPanel" class="hidden bg-primary-50 rounded-lg p-4 border border-primary-200">
+                            <div class="grid sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="filterType" class="input-label text-xs">Tipo de Viaje</label>
+                                    <select id="filterType" class="input h-10 text-sm">
+                                        <option value="">Todos</option>
+                                        <option value="loaded">Cargado</option>
+                                        <option value="empty">Vacío</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="filterDateFrom" class="input-label text-xs">Desde</label>
+                                    <input type="date" id="filterDateFrom" class="input h-10 text-sm">
+                                </div>
+                                <div>
+                                    <label for="filterDateTo" class="input-label text-xs">Hasta</label>
+                                    <input type="date" id="filterDateTo" class="input h-10 text-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trip Statistics -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-primary-50 rounded-lg p-4 border border-primary-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <img src="https://images.unsplash.com/photo-1547288894-09ffa74e1ecc" alt="Total de viajes" class="w-5 h-5">
+                                <span class="text-xs text-text-secondary font-caption">Total Viajes</span>
+                            </div>
+                            <p class="text-2xl font-heading font-bold text-primary font-data" id="totalTrips">0</p>
+                        </div>
+                        <div class="bg-accent-50 rounded-lg p-4 border border-accent-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <img src="https://images.unsplash.com/photo-1583711318940-52e82c5af01e" alt="Viajes cargados" class="w-5 h-5">
+                                <span class="text-xs text-text-secondary font-caption">Cargados</span>
+                            </div>
+                            <p class="text-2xl font-heading font-bold text-accent font-data" id="loadedTrips">0</p>
+                        </div>
+                        <div class="bg-secondary-50 rounded-lg p-4 border border-secondary-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <img src="https://images.unsplash.com/photo-1701634162838-0984e371ca29" alt="Kilómetros totales" class="w-5 h-5">
+                                <span class="text-xs text-text-secondary font-caption">Km Totales</span>
+                            </div>
+                            <p class="text-2xl font-heading font-bold text-secondary font-data" id="totalKm">0</p>
+                        </div>
+                        <div class="bg-success-50 rounded-lg p-4 border border-success-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_183d98536-1764672149988.png" alt="Ingresos totales" class="w-5 h-5">
+                                <span class="text-xs text-text-secondary font-caption">Ingresos</span>
+                            </div>
+                            <p class="text-2xl font-heading font-bold text-success font-data" id="totalRevenue">0,00 €</p>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Table View -->
+                    <div id="tableView" class="hidden sm:block overflow-x-auto">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="cursor-pointer hover:bg-primary-100" data-sort="date">
+                                        <div class="flex items-center gap-2">
+                                            Fecha
+                                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1896aed5f-1764656753071.png" alt="Ordenar" class="w-4 h-4">
+                                        </div>
+                                    </th>
+                                    <th>Tipo</th>
+                                    <th>Camión</th>
+                                    <th>Ruta</th>
+                                    <th class="cursor-pointer hover:bg-primary-100" data-sort="distance">
+                                        <div class="flex items-center gap-2">
+                                            Distancia
+                                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1896aed5f-1764656753071.png" alt="Ordenar" class="w-4 h-4">
+                                        </div>
+                                    </th>
+                                    <th class="cursor-pointer hover:bg-primary-100" data-sort="revenue">
+                                        <div class="flex items-center gap-2">
+                                            Ingresos
+                                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1896aed5f-1764656753071.png" alt="Ordenar" class="w-4 h-4">
+                                        </div>
+                                    </th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tripsTableBody">
+                                <!-- Trip rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mobile Card View -->
+                    <div id="cardView" class="sm:hidden space-y-4">
+                        <!-- Trip cards will be populated by JavaScript -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="hidden text-center py-12">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_18c12196d-1766574909101.png" alt="Sin viajes registrados" class="w-48 h-48 object-cover rounded-lg mx-auto mb-4 opacity-50" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <h3 class="text-xl font-heading font-semibold text-text-primary mb-2">No hay viajes registrados</h3>
+                        <p class="text-text-secondary mb-4">Comience registrando su primer viaje usando el formulario</p>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div id="pagination" class="hidden flex items-center justify-between mt-6 pt-6 border-t border-border-light">
+                        <div class="text-sm text-text-secondary">
+                            Mostrando <span id="showingFrom" class="font-medium text-text-primary">1</span> a 
+                            <span id="showingTo" class="font-medium text-text-primary">10</span> de 
+                            <span id="showingTotal" class="font-medium text-text-primary">0</span> viajes
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="prevPage" class="btn-outline h-10 px-4 text-sm" disabled>
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13205c3d8-1765252084774.png" alt="Anterior" class="w-5 h-5">
+                            </button>
+                            <button id="nextPage" class="btn-outline h-10 px-4 text-sm" disabled>
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1261849e9-1766836029510.png" alt="Siguiente" class="w-5 h-5">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Trip Detail Modal -->
+    <div id="tripDetailModal" class="hidden modal-overlay">
+        <div class="modal max-w-3xl">
+            <div class="p-6 border-b border-border-light">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-2xl font-heading font-semibold text-primary">Detalles del Viaje</h3>
+                    <button id="closeModal" class="focus-ring rounded-lg p-2 hover:bg-primary-50 transition-colors">
+                        <img src="https://images.unsplash.com/photo-1584311830189-3026b1c2cacb" alt="Cerrar" class="w-6 h-6">
+                    </button>
+                </div>
+            </div>
+            <div class="p-6" id="modalContent">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data and state management
+        let currentUser = null;
+        let trips = [];
+        let trucks = [];
+        let settings = {
+            loadedRate: 1.20,
+            emptyRate: 0.00,
+            fuelConsumption: 28.0
+        };
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let filteredTrips = [];
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check authentication
+            const userStr = sessionStorage.getItem('user');
+            if (!userStr) {
+                window.location.href = 'login_authentication.html';
+                return;
+            }
+
+            currentUser = JSON.parse(userStr);
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Set user info
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userRole').textContent = currentUser.role === 'manager' ? 'Gerente' : 'Conductor';
+
+            // Setup navigation
+            setupNavigation();
+
+            // Load mock data
+            loadMockData();
+
+            // Setup event listeners
+            setupEventListeners();
+
+            // Set default date to today
+            document.getElementById('tripDate').valueAsDate = new Date();
+
+            // Initialize view
+            updateTripsList();
+            updateStatistics();
+        }
+
+        function setupNavigation() {
+            const nav = document.getElementById('mainNav');
+            const navItems = currentUser.role === 'manager' ? [
+                { label: 'Dashboard', icon: 'mdi:view-dashboard', href: 'manager_dashboard.html' },
+                { label: 'Viajes', icon: 'mdi:truck', href: 'trip_management.html', active: true },
+                { label: 'Repostajes', icon: 'mdi:gas-station', href: 'fuel_refueling_tracking.html' },
+                { label: 'Configuración', icon: 'mdi:cog', href: 'settings_configuration.html' },
+                { label: 'Exportar', icon: 'mdi:download', href: 'data_export_interface.html' }
+            ] : [
+                { label: 'Viajes', icon: 'mdi:truck', href: 'trip_management.html', active: true },
+                { label: 'Repostajes', icon: 'mdi:gas-station', href: 'fuel_refueling_tracking.html' }
+            ];
+
+            nav.innerHTML = navItems.map(item => `
+                <a href="${item.href}" class="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    item.active 
+                        ? 'bg-primary text-white' 
+                        : 'text-text-secondary hover:bg-primary-50 hover:text-primary'
+                }">
+                    <img src="https://api.iconify.design/${item.icon}.svg?color=${item.active ? '%23FFFFFF' : '%234A5568'}" 
+                         alt="${item.label}" class="w-5 h-5">
+                    <span class="text-sm font-medium whitespace-nowrap">${item.label}</span>
+                </a>
+            `).join('');
+        }
+
+        function loadMockData() {
+            // Mock trucks
+            trucks = [
+                { id: 1, registration: 'ABC-1234', description: 'Volvo FH16' },
+                { id: 2, registration: 'DEF-5678', description: 'Scania R450' },
+                { id: 3, registration: 'GHI-9012', description: 'Mercedes Actros' }
+            ];
+
+            // Populate truck dropdown
+            const truckSelect = document.getElementById('truckId');
+            truckSelect.innerHTML = '<option value="">Seleccione un camión</option>' +
+                trucks.map(truck => `<option value="${truck.id}">${truck.registration} - ${truck.description}</option>`).join('');
+
+            // Mock trips
+            trips = [
+                {
+                    id: 1,
+                    date: '2026-01-01',
+                    type: 'loaded',
+                    truckId: 1,
+                    origin: 'Madrid',
+                    destination: 'Barcelona',
+                    kmStart: 45000,
+                    kmEnd: 45620,
+                    distance: 620,
+                    revenue: 744.00,
+                    cmrFile: 'cmr_001.pdf',
+                    notes: 'Entrega puntual',
+                    driver: 'Miguel Fernández'
+                },
+                {
+                    id: 2,
+                    date: '2025-12-30',
+                    type: 'empty',
+                    truckId: 1,
+                    origin: 'Barcelona',
+                    destination: 'Valencia',
+                    kmStart: 45620,
+                    kmEnd: 45970,
+                    distance: 350,
+                    revenue: 0.00,
+                    notes: 'Retorno a base',
+                    driver: 'Miguel Fernández'
+                },
+                {
+                    id: 3,
+                    date: '2025-12-28',
+                    type: 'loaded',
+                    truckId: 2,
+                    origin: 'Sevilla',
+                    destination: 'Madrid',
+                    kmStart: 32000,
+                    kmEnd: 32530,
+                    distance: 530,
+                    revenue: 636.00,
+                    cmrFile: 'cmr_002.pdf',
+                    driver: 'Ana Martínez'
+                }
+            ];
+
+            // Filter trips based on user role
+            if (currentUser.role === 'driver') {
+                trips = trips.filter(trip => trip.driver === currentUser.name);
+            }
+
+            filteredTrips = [...trips];
+        }
+
+        function setupEventListeners() {
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                sessionStorage.removeItem('user');
+                window.location.href = 'login_authentication.html';
+            });
+
+            // Trip type buttons
+            document.querySelectorAll('.trip-type-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.trip-type-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-primary', 'text-white');
+                        b.classList.add('bg-surface', 'text-text-secondary', 'border', 'border-border');
+                        const img = b.querySelector('img');
+                        if (b.dataset.type === 'loaded') {
+                            img.src = 'https://api.iconify.design/mdi:truck-cargo-container.svg?color=%234A5568';
+                        } else {
+                            img.src = 'https://api.iconify.design/mdi:truck-outline.svg?color=%234A5568';
+                        }
+                    });
+                    
+                    this.classList.add('active', 'bg-primary', 'text-white');
+                    this.classList.remove('bg-surface', 'text-text-secondary', 'border', 'border-border');
+                    const img = this.querySelector('img');
+                    if (this.dataset.type === 'loaded') {
+                        img.src = 'https://api.iconify.design/mdi:truck-cargo-container.svg?color=%23FFFFFF';
+                    } else {
+                        img.src = 'https://api.iconify.design/mdi:truck-outline.svg?color=%23FFFFFF';
+                    }
+                    
+                    document.getElementById('tripType').value = this.dataset.type;
+                    toggleCMRUpload(this.dataset.type === 'loaded');
+                    calculateRevenue();
+                });
+            });
+
+            // Distance calculation
+            ['kmStart', 'kmEnd'].forEach(id => {
+                document.getElementById(id).addEventListener('input', calculateDistance);
+            });
+
+            // File upload
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('cmrFile');
+
+            dropZone.addEventListener('click', () => fileInput.click());
+
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('border-primary', 'bg-primary-50');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('border-primary', 'bg-primary-50');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('border-primary', 'bg-primary-50');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileSelect(files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+
+            document.getElementById('removeFile').addEventListener('click', () => {
+                fileInput.value = '';
+                document.getElementById('filePreview').classList.add('hidden');
+                dropZone.classList.remove('hidden');
+            });
+
+            // Form submission
+            document.getElementById('tripForm').addEventListener('submit', handleFormSubmit);
+
+            // Reset form
+            document.getElementById('resetForm').addEventListener('click', resetForm);
+
+            // Search and filters
+            document.getElementById('searchTrips').addEventListener('input', applyFilters);
+            document.getElementById('filterBtn').addEventListener('click', toggleFilterPanel);
+            document.getElementById('resetFilters').addEventListener('click', resetFilters);
+            ['filterType', 'filterDateFrom', 'filterDateTo'].forEach(id => {
+                document.getElementById(id).addEventListener('change', applyFilters);
+            });
+
+            // Sorting
+            document.querySelectorAll('[data-sort]').forEach(th => {
+                th.addEventListener('click', () => sortTrips(th.dataset.sort));
+            });
+
+            // Pagination
+            document.getElementById('prevPage').addEventListener('click', () => changePage(-1));
+            document.getElementById('nextPage').addEventListener('click', () => changePage(1));
+
+            // Modal
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            document.getElementById('tripDetailModal').addEventListener('click', (e) => {
+                if (e.target.id === 'tripDetailModal') closeModal();
+            });
+
+            // View toggle
+            document.getElementById('toggleViewBtn').addEventListener('click', toggleView);
+
+            // Initialize trip type buttons styling
+            document.querySelectorAll('.trip-type-btn').forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    btn.classList.add('bg-surface', 'text-text-secondary', 'border', 'border-border');
+                } else {
+                    btn.classList.add('bg-primary', 'text-white');
+                }
+                btn.classList.add('flex', 'items-center', 'justify-center', 'gap-2', 'h-12', 'rounded-lg', 'transition-all', 'focus-ring');
+            });
+        }
+
+        function toggleCMRUpload(show) {
+            const section = document.getElementById('cmrUploadSection');
+            const revenueDisplay = document.getElementById('revenueDisplay');
+            
+            if (show) {
+                section.classList.remove('hidden');
+                revenueDisplay.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+                revenueDisplay.classList.add('hidden');
+            }
+        }
+
+        function calculateDistance() {
+            const kmStart = parseFloat(document.getElementById('kmStart').value) || 0;
+            const kmEnd = parseFloat(document.getElementById('kmEnd').value) || 0;
+            const distance = Math.max(0, kmEnd - kmStart);
+            
+            document.getElementById('totalDistance').textContent = `${distance.toLocaleString('es-ES')} km`;
+            calculateRevenue();
+        }
+
+        function calculateRevenue() {
+            const tripType = document.getElementById('tripType').value;
+            const kmStart = parseFloat(document.getElementById('kmStart').value) || 0;
+            const kmEnd = parseFloat(document.getElementById('kmEnd').value) || 0;
+            const distance = Math.max(0, kmEnd - kmStart);
+            
+            const rate = tripType === 'loaded' ? settings.loadedRate : settings.emptyRate;
+            const revenue = distance * rate;
+            
+            document.getElementById('estimatedRevenue').textContent = `${revenue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+        }
+
+        function handleFileSelect(file) {
+            const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            const maxSize = 10 * 1024 * 1024; // 10MB
+
+            if (!validTypes.includes(file.type)) {
+                alert('Por favor, seleccione un archivo PDF, JPG o PNG');
+                return;
+            }
+
+            if (file.size > maxSize) {
+                alert('El archivo no debe superar los 10MB');
+                return;
+            }
+
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = `${(file.size / 1024).toFixed(0)} KB`;
+            document.getElementById('filePreview').classList.remove('hidden');
+            document.getElementById('dropZone').classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const tripType = formData.get('tripType');
+            const kmStart = parseFloat(formData.get('kmStart'));
+            const kmEnd = parseFloat(formData.get('kmEnd'));
+            const distance = kmEnd - kmStart;
+
+            // Validate distance
+            if (distance <= 0) {
+                alert('Los kilómetros finales deben ser mayores que los iniciales');
+                return;
+            }
+
+            // Validate CMR file for loaded trips
+            if (tripType === 'loaded' && !document.getElementById('cmrFile').files.length) {
+                alert('Debe adjuntar el documento CMR para viajes cargados');
+                return;
+            }
+
+            // Calculate revenue
+            const rate = tripType === 'loaded' ? settings.loadedRate : settings.emptyRate;
+            const revenue = distance * rate;
+
+            // Create new trip
+            const newTrip = {
+                id: trips.length + 1,
+                date: formData.get('tripDate'),
+                type: tripType,
+                truckId: parseInt(formData.get('truckId')),
+                origin: formData.get('origin'),
+                destination: formData.get('destination'),
+                kmStart: kmStart,
+                kmEnd: kmEnd,
+                distance: distance,
+                revenue: revenue,
+                cmrFile: tripType === 'loaded' ? document.getElementById('cmrFile').files[0].name : null,
+                notes: formData.get('notes'),
+                driver: currentUser.name
+            };
+
+            trips.unshift(newTrip);
+            filteredTrips = [...trips];
+
+            // Reset form
+            resetForm();
+
+            // Update display
+            updateTripsList();
+            updateStatistics();
+
+            // Show success message
+            alert('Viaje registrado correctamente');
+        }
+
+        function resetForm() {
+            document.getElementById('tripForm').reset();
+            document.getElementById('tripDate').valueAsDate = new Date();
+            document.getElementById('totalDistance').textContent = '0 km';
+            document.getElementById('estimatedRevenue').textContent = '0,00 €';
+            document.getElementById('filePreview').classList.add('hidden');
+            document.getElementById('dropZone').classList.remove('hidden');
+            
+            // Reset trip type buttons
+            document.querySelectorAll('.trip-type-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-primary', 'text-white');
+                btn.classList.add('bg-surface', 'text-text-secondary', 'border', 'border-border');
+            });
+            document.querySelector('[data-type="loaded"]').classList.add('active', 'bg-primary', 'text-white');
+            document.querySelector('[data-type="loaded"]').classList.remove('bg-surface', 'text-text-secondary', 'border', 'border-border');
+            
+            toggleCMRUpload(true);
+        }
+
+        function updateTripsList() {
+            const tableBody = document.getElementById('tripsTableBody');
+            const cardView = document.getElementById('cardView');
+            const emptyState = document.getElementById('emptyState');
+            const pagination = document.getElementById('pagination');
+
+            if (filteredTrips.length === 0) {
+                tableBody.innerHTML = '';
+                cardView.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                pagination.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            pagination.classList.remove('hidden');
+
+            // Pagination
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, filteredTrips.length);
+            const pageTrips = filteredTrips.slice(startIndex, endIndex);
+
+            // Update pagination info
+            document.getElementById('showingFrom').textContent = startIndex + 1;
+            document.getElementById('showingTo').textContent = endIndex;
+            document.getElementById('showingTotal').textContent = filteredTrips.length;
+
+            // Update pagination buttons
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = endIndex >= filteredTrips.length;
+
+            // Table view
+            tableBody.innerHTML = pageTrips.map(trip => {
+                const truck = trucks.find(t => t.id === trip.truckId);
+                return `
+                    <tr>
+                        <td class="font-data">${formatDate(trip.date)}</td>
+                        <td>
+                            <span class="badge ${trip.type === 'loaded' ? 'badge-primary' : 'badge-warning'}">
+                                ${trip.type === 'loaded' ? 'Cargado' : 'Vacío'}
+                            </span>
+                        </td>
+                        <td class="font-medium">${truck ? truck.registration : 'N/A'}</td>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <img src="https://api.iconify.design/mdi:map-marker.svg?color=%234A5568" alt="Origen" class="w-4 h-4">
+                                <span class="text-sm">${trip.origin}</span>
+                            </div>
+                            <div class="flex items-center gap-2 mt-1">
+                                <img src="https://api.iconify.design/mdi:map-marker-check.svg?color=%234A5568" alt="Destino" class="w-4 h-4">
+                                <span class="text-sm">${trip.destination}</span>
+                            </div>
+                        </td>
+                        <td class="font-data">${trip.distance.toLocaleString('es-ES')} km</td>
+                        <td class="font-data font-medium ${trip.revenue > 0 ? 'text-success' : 'text-text-tertiary'}">
+                            ${trip.revenue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
+                        </td>
+                        <td>
+                            <button onclick="viewTripDetail(${trip.id})" class="focus-ring rounded p-2 hover:bg-primary-50 transition-colors">
+                                <img src="https://api.iconify.design/mdi:eye.svg?color=%231E3A5F" alt="Ver detalles" class="w-5 h-5">
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Card view (mobile)
+            cardView.innerHTML = pageTrips.map(trip => {
+                const truck = trucks.find(t => t.id === trip.truckId);
+                return `
+                    <div class="card p-4">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <span class="badge ${trip.type === 'loaded' ? 'badge-primary' : 'badge-warning'} mb-2">
+                                    ${trip.type === 'loaded' ? 'Cargado' : 'Vacío'}
+                                </span>
+                                <p class="text-sm text-text-tertiary font-data">${formatDate(trip.date)}</p>
+                            </div>
+                            <button onclick="viewTripDetail(${trip.id})" class="focus-ring rounded p-2 hover:bg-primary-50 transition-colors">
+                                <img src="https://api.iconify.design/mdi:eye.svg?color=%231E3A5F" alt="Ver detalles" class="w-5 h-5">
+                            </button>
+                        </div>
+                        <div class="space-y-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <img src="https://api.iconify.design/mdi:truck.svg?color=%234A5568" alt="Camión" class="w-4 h-4">
+                                <span class="text-sm font-medium">${truck ? truck.registration : 'N/A'}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <img src="https://api.iconify.design/mdi:map-marker.svg?color=%234A5568" alt="Origen" class="w-4 h-4">
+                                <span class="text-sm">${trip.origin}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <img src="https://api.iconify.design/mdi:map-marker-check.svg?color=%234A5568" alt="Destino" class="w-4 h-4">
+                                <span class="text-sm">${trip.destination}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-border-light">
+                            <div>
+                                <p class="text-xs text-text-tertiary">Distancia</p>
+                                <p class="font-data font-medium">${trip.distance.toLocaleString('es-ES')} km</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-text-tertiary">Ingresos</p>
+                                <p class="font-data font-medium ${trip.revenue > 0 ? 'text-success' : 'text-text-tertiary'}">
+                                    ${trip.revenue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStatistics() {
+            const totalTrips = filteredTrips.length;
+            const loadedTrips = filteredTrips.filter(t => t.type === 'loaded').length;
+            const totalKm = filteredTrips.reduce((sum, t) => sum + t.distance, 0);
+            const totalRevenue = filteredTrips.reduce((sum, t) => sum + t.revenue, 0);
+
+            document.getElementById('totalTrips').textContent = totalTrips;
+            document.getElementById('loadedTrips').textContent = loadedTrips;
+            document.getElementById('totalKm').textContent = totalKm.toLocaleString('es-ES');
+            document.getElementById('totalRevenue').textContent = `${totalRevenue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchTrips').value.toLowerCase();
+            const filterType = document.getElementById('filterType').value;
+            const filterDateFrom = document.getElementById('filterDateFrom').value;
+            const filterDateTo = document.getElementById('filterDateTo').value;
+
+            filteredTrips = trips.filter(trip => {
+                const truck = trucks.find(t => t.id === trip.truckId);
+                const matchesSearch = !searchTerm || 
+                    trip.origin.toLowerCase().includes(searchTerm) ||
+                    trip.destination.toLowerCase().includes(searchTerm) ||
+                    (truck && truck.registration.toLowerCase().includes(searchTerm));
+
+                const matchesType = !filterType || trip.type === filterType;
+                const matchesDateFrom = !filterDateFrom || trip.date >= filterDateFrom;
+                const matchesDateTo = !filterDateTo || trip.date <= filterDateTo;
+
+                return matchesSearch && matchesType && matchesDateFrom && matchesDateTo;
+            });
+
+            currentPage = 1;
+            updateTripsList();
+            updateStatistics();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchTrips').value = '';
+            document.getElementById('filterType').value = '';
+            document.getElementById('filterDateFrom').value = '';
+            document.getElementById('filterDateTo').value = '';
+            filteredTrips = [...trips];
+            currentPage = 1;
+            updateTripsList();
+            updateStatistics();
+        }
+
+        function toggleFilterPanel() {
+            const panel = document.getElementById('filterPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        function sortTrips(field) {
+            const isAscending = filteredTrips[0] && filteredTrips[0][field] <= filteredTrips[filteredTrips.length - 1][field];
+            
+            filteredTrips.sort((a, b) => {
+                if (field === 'date') {
+                    return isAscending ? 
+                        new Date(b.date) - new Date(a.date) : 
+                        new Date(a.date) - new Date(b.date);
+                }
+                return isAscending ? b[field] - a[field] : a[field] - b[field];
+            });
+
+            updateTripsList();
+        }
+
+        function changePage(direction) {
+            const maxPage = Math.ceil(filteredTrips.length / itemsPerPage);
+            currentPage = Math.max(1, Math.min(currentPage + direction, maxPage));
+            updateTripsList();
+        }
+
+        function toggleView() {
+            const tableView = document.getElementById('tableView');
+            const cardView = document.getElementById('cardView');
+            const viewIcon = document.getElementById('viewIcon');
+            const viewText = document.getElementById('viewText');
+
+            if (window.innerWidth >= 640) {
+                // Desktop: toggle between table and card
+                if (tableView.classList.contains('hidden')) {
+                    tableView.classList.remove('hidden');
+                    cardView.classList.add('hidden');
+                    viewIcon.src = 'https://api.iconify.design/mdi:view-grid.svg?color=%231E3A5F';
+                    viewText.textContent = 'Ver Tarjetas';
+                } else {
+                    tableView.classList.add('hidden');
+                    cardView.classList.remove('hidden');
+                    viewIcon.src = 'https://api.iconify.design/mdi:view-list.svg?color=%231E3A5F';
+                    viewText.textContent = 'Ver Lista';
+                }
+            }
+        }
+
+        function viewTripDetail(tripId) {
+            const trip = trips.find(t => t.id === tripId);
+            if (!trip) return;
+
+            const truck = trucks.find(t => t.id === trip.truckId);
+            const modal = document.getElementById('tripDetailModal');
+            const content = document.getElementById('modalContent');
+
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-text-tertiary mb-1">Fecha</p>
+                            <p class="font-medium font-data">${formatDate(trip.date)}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-text-tertiary mb-1">Tipo de Viaje</p>
+                            <span class="badge ${trip.type === 'loaded' ? 'badge-primary' : 'badge-warning'}">
+                                ${trip.type === 'loaded' ? 'Cargado' : 'Vacío'}
+                            </span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-text-tertiary mb-1">Camión</p>
+                            <p class="font-medium">${truck ? `${truck.registration} - ${truck.description}` : 'N/A'}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-text-tertiary mb-1">Conductor</p>
+                            <p class="font-medium">${trip.driver}</p>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-border-light pt-6">
+                        <h4 class="font-heading font-semibold text-primary mb-4">Ruta</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <img src="https://api.iconify.design/mdi:map-marker.svg?color=%231E3A5F" alt="Origen" class="w-5 h-5 mt-0.5">
+                                <div>
+                                    <p class="text-sm text-text-tertiary">Origen</p>
+                                    <p class="font-medium">${trip.origin}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <img src="https://api.iconify.design/mdi:map-marker-check.svg?color=%2338A169" alt="Destino" class="w-5 h-5 mt-0.5">
+                                <div>
+                                    <p class="text-sm text-text-tertiary">Destino</p>
+                                    <p class="font-medium">${trip.destination}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-border-light pt-6">
+                        <h4 class="font-heading font-semibold text-primary mb-4">Kilómetros</h4>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-primary-50 rounded-lg p-4 border border-primary-200">
+                                <p class="text-xs text-text-tertiary mb-1">Inicio</p>
+                                <p class="text-xl font-heading font-bold text-primary font-data">${trip.kmStart.toLocaleString('es-ES')}</p>
+                            </div>
+                            <div class="bg-primary-50 rounded-lg p-4 border border-primary-200">
+                                <p class="text-xs text-text-tertiary mb-1">Final</p>
+                                <p class="text-xl font-heading font-bold text-primary font-data">${trip.kmEnd.toLocaleString('es-ES')}</p>
+                            </div>
+                            <div class="bg-accent-50 rounded-lg p-4 border border-accent-200">
+                                <p class="text-xs text-text-tertiary mb-1">Distancia</p>
+                                <p class="text-xl font-heading font-bold text-accent font-data">${trip.distance.toLocaleString('es-ES')}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${trip.revenue > 0 ? `
+                        <div class="border-t border-border-light pt-6">
+                            <h4 class="font-heading font-semibold text-primary mb-4">Ingresos</h4>
+                            <div class="bg-success-50 rounded-lg p-6 border border-success-200">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-text-secondary">Total</span>
+                                    <span class="text-3xl font-heading font-bold text-success font-data">
+                                        ${trip.revenue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${trip.cmrFile ? `
+                        <div class="border-t border-border-light pt-6">
+                            <h4 class="font-heading font-semibold text-primary mb-4">Documento CMR</h4>
+                            <div class="flex items-center gap-3 p-4 bg-primary-50 rounded-lg border border-primary-200">
+                                <img src="https://api.iconify.design/mdi:file-pdf-box.svg?color=%231E3A5F" alt="Documento PDF" class="w-8 h-8">
+                                <div class="flex-1">
+                                    <p class="font-medium">${trip.cmrFile}</p>
+                                    <p class="text-sm text-text-tertiary">Documento adjunto</p>
+                                </div>
+                                <button class="btn-outline h-10 px-4 text-sm">
+                                    <img src="https://api.iconify.design/mdi:download.svg?color=%231E3A5F" alt="Descargar" class="w-4 h-4">
+                                </button>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${trip.notes ? `
+                        <div class="border-t border-border-light pt-6">
+                            <h4 class="font-heading font-semibold text-primary mb-4">Notas</h4>
+                            <p class="text-text-secondary">${trip.notes}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('tripDetailModal').classList.add('hidden');
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        // Initialize responsive view
+        function initializeResponsiveView() {
+            const tableView = document.getElementById('tableView');
+            const cardView = document.getElementById('cardView');
+            
+            if (window.innerWidth < 640) {
+                tableView.classList.add('hidden');
+                cardView.classList.remove('hidden');
+            } else {
+                tableView.classList.remove('hidden');
+                cardView.classList.add('hidden');
+            }
+        }
+
+        window.addEventListener('resize', initializeResponsiveView);
+        initializeResponsiveView();
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
