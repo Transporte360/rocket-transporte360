@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Repostajes - Transporte360</title>
+    <link rel="stylesheet" href="../css/main.css">
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransporte1153back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-surface border-b border-border-light sticky top-0 z-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center gap-3">
+                    <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="64" height="64" rx="12" fill="#1E3A5F"/>
+                        <path d="M16 32L32 20L48 32M20 36V44C20 45.1046 20.8954 46 22 46H42C43.1046 46 44 45.1046 44 44V36" stroke="#E67E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="32" cy="32" r="4" fill="#E67E22"/>
+                    </svg>
+                    <div>
+                        <h1 class="text-lg font-heading font-bold text-primary">Transporte360</h1>
+                        <p class="text-xs text-text-tertiary font-caption">Gestión de Flotas</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="trip_management.html" class="px-4 py-2 text-sm font-medium text-text-secondary hover:text-primary hover:bg-primary-50 rounded-lg transition-colors">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1403dd4a2-1764846857059.png" alt="Icono de viajes" class="w-5 h-5">
+                            Viajes
+                        </span>
+                    </a>
+                    <a href="fuel_refueling_tracking.html" class="px-4 py-2 text-sm font-medium text-primary bg-primary-50 rounded-lg">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-5 h-5">
+                            Combustible
+                        </span>
+                    </a>
+                    <a href="manager_dashboard.html" id="managerDashboardLink" class="hidden px-4 py-2 text-sm font-medium text-text-secondary hover:text-primary hover:bg-primary-50 rounded-lg transition-colors">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1fb3d5913-1767026875803.png" alt="Icono de dashboard" class="w-5 h-5">
+                            Dashboard
+                        </span>
+                    </a>
+                    <a href="settings_configuration.html" id="settingsLink" class="hidden px-4 py-2 text-sm font-medium text-text-secondary hover:text-primary hover:bg-primary-50 rounded-lg transition-colors">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1293e4bfe-1767102860924.png" alt="Icono de configuración" class="w-5 h-5">
+                            Configuración
+                        </span>
+                    </a>
+                </nav>
+
+                <!-- User Menu -->
+                <div class="flex items-center gap-3">
+                    <div class="hidden sm:block text-right">
+                        <p class="text-sm font-medium text-primary" id="userName">Usuario</p>
+                        <p class="text-xs text-text-tertiary font-caption" id="userRole">Conductor</p>
+                    </div>
+                    <button id="logoutButton" class="btn-outline px-4 py-2 text-sm flex items-center gap-2 h-auto">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a920af4a-1766478424944.png" alt="Icono de cerrar sesión" class="w-5 h-5">
+                        <span class="hidden sm:inline">Salir</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="md:hidden border-t border-border-light bg-surface">
+            <div class="flex items-center justify-around py-2">
+                <a href="trip_management.html" class="flex flex-col items-center gap-1 px-3 py-2 text-text-secondary">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1403dd4a2-1764846857059.png" alt="Icono de viajes" class="w-6 h-6">
+                    <span class="text-xs font-caption">Viajes</span>
+                </a>
+                <a href="fuel_refueling_tracking.html" class="flex flex-col items-center gap-1 px-3 py-2 text-primary">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-6 h-6">
+                    <span class="text-xs font-caption font-medium">Combustible</span>
+                </a>
+                <a href="manager_dashboard.html" id="managerDashboardLinkMobile" class="hidden flex-col items-center gap-1 px-3 py-2 text-text-secondary">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1fb3d5913-1767026875803.png" alt="Icono de dashboard" class="w-6 h-6">
+                    <span class="text-xs font-caption">Dashboard</span>
+                </a>
+                <a href="settings_configuration.html" id="settingsLinkMobile" class="hidden flex-col items-center gap-1 px-3 py-2 text-text-secondary">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1293e4bfe-1767102860924.png" alt="Icono de configuración" class="w-6 h-6">
+                    <span class="text-xs font-caption">Config</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de estación de combustible" class="w-7 h-7">
+                </div>
+                <div>
+                    <h2 class="text-3xl font-heading font-bold text-primary">Registro de Repostajes</h2>
+                    <p class="text-text-secondary font-caption">Gestión de consumo de combustible y recibos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden mb-6 card bg-success-50 border-success-200">
+            <div class="flex items-start gap-3">
+                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16c347df3-1766989217186.png" alt="Icono de éxito" class="w-6 h-6 flex-shrink-0 mt-0.5">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-success-700">Repostaje registrado correctamente</p>
+                    <p class="text-xs text-success-600 mt-1">El registro se ha guardado y los costos se han actualizado</p>
+                </div>
+                <button onclick="document.getElementById('successMessage').classList.add('hidden')" class="text-success-700 hover:text-success-800">
+                    <img src="https://images.unsplash.com/photo-1601577751365-4338661241be" alt="Cerrar mensaje" class="w-5 h-5">
+                </button>
+            </div>
+        </div>
+
+        <!-- Refueling Entry Form -->
+        <section class="card mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-heading font-semibold text-primary">Nuevo Repostaje</h3>
+                <div class="badge badge-primary">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_153404168-1765124895393.png" alt="Icono de calendario" class="w-4 h-4 mr-1">
+                    <span id="currentDate">01/01/2026</span>
+                </div>
+            </div>
+
+            <form id="refuelingForm" class="space-y-6">
+                <!-- Date and Time Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="refuelDate" class="input-label">
+                            <span class="flex items-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_12b3c411e-1767116048101.png" alt="Icono de fecha" class="w-4 h-4">
+                                Fecha de Repostaje *
+                            </span>
+                        </label>
+                        <input 
+                            type="date" 
+                            id="refuelDate" 
+                            name="refuelDate"
+                            class="input" 
+                            required
+                            max="2026-01-01"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="refuelTime" class="input-label">
+                            <span class="flex items-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16ac63682-1764638682166.png" alt="Icono de hora" class="w-4 h-4">
+                                Hora *
+                            </span>
+                        </label>
+                        <input 
+                            type="time" 
+                            id="refuelTime" 
+                            name="refuelTime"
+                            class="input" 
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Fuel Amount and Cost Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="fuelAmount" class="input-label">
+                            <span class="flex items-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-4 h-4">
+                                Cantidad de Combustible (Litros) *
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="number" 
+                                id="fuelAmount" 
+                                name="fuelAmount"
+                                class="input pr-12 font-data" 
+                                placeholder="0.00"
+                                step="0.01"
+                                min="0"
+                                required
+                            >
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-text-tertiary text-sm font-caption">L</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="fuelCost" class="input-label">
+                            <span class="flex items-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a016b88b-1766926859944.png" alt="Icono de euro" class="w-4 h-4">
+                                Costo Total *
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="number" 
+                                id="fuelCost" 
+                                name="fuelCost"
+                                class="input pr-12 font-data" 
+                                placeholder="0.00"
+                                step="0.01"
+                                min="0"
+                                required
+                            >
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-text-tertiary text-sm font-caption">EUR</span>
+                        </div>
+                        <p class="text-xs text-text-tertiary mt-1 font-caption">
+                            Precio por litro: <span id="pricePerLiter" class="font-data">0.00 EUR/L</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div>
+                    <label for="location" class="input-label">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1b1050ddd-1767300174930.png" alt="Icono de ubicación" class="w-4 h-4">
+                            Ubicación de la Estación *
+                        </span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="location" 
+                        name="location"
+                        class="input" 
+                        placeholder="Ej: Repsol - A-2 KM 45, Madrid"
+                        required
+                    >
+                </div>
+
+                <!-- Receipt Upload Section -->
+                <div>
+                    <label class="input-label mb-3">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1f58a544e-1766722224106.png" alt="Icono de recibo" class="w-4 h-4">
+                            Recibo de Repostaje *
+                        </span>
+                    </label>
+                    
+                    <!-- Upload Area -->
+                    <div id="uploadArea" class="border-2 border-dashed border-border rounded-xl p-8 text-center transition-all hover:border-primary hover:bg-primary-50 cursor-pointer">
+                        <input 
+                            type="file" 
+                            id="receiptFile" 
+                            name="receiptFile"
+                            accept=".pdf,.jpg,.jpeg,.png"
+                            class="hidden"
+                            required
+                        >
+                        <div id="uploadPrompt">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1bcf67d9b-1766986260490.png" alt="Icono de subir archivo" class="w-16 h-16 mx-auto mb-4">
+                            <p class="text-text-primary font-medium mb-2">Arrastra el recibo aquí o haz clic para seleccionar</p>
+                            <p class="text-sm text-text-tertiary font-caption mb-3">Formatos aceptados: PDF, JPG, PNG</p>
+                            <p class="text-xs text-text-tertiary font-caption">Tamaño máximo: 5 MB</p>
+                        </div>
+                        
+                        <!-- Upload Progress -->
+                        <div id="uploadProgress" class="hidden">
+                            <div class="flex items-center justify-center gap-3 mb-3">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1722ee99f-1767300172245.png" alt="Icono de documento" class="w-8 h-8">
+                                <div class="flex-1 text-left">
+                                    <p class="text-sm font-medium text-text-primary" id="fileName">archivo.pdf</p>
+                                    <p class="text-xs text-text-tertiary font-caption" id="fileSize">0 KB</p>
+                                </div>
+                                <button type="button" id="removeFile" class="text-error hover:text-error-700">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_148fcdd0a-1766618026197.png" alt="Eliminar archivo" class="w-6 h-6">
+                                </button>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="progressFill" class="progress-bar-fill" style="width: 0%"></div>
+                            </div>
+                            <p class="text-xs text-text-tertiary mt-2 font-caption">
+                                <span id="uploadStatus">Subiendo...</span>
+                            </p>
+                        </div>
+
+                        <!-- Upload Success -->
+                        <div id="uploadSuccess" class="hidden">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16c347df3-1766989217186.png" alt="Icono de éxito" class="w-16 h-16 mx-auto mb-4">
+                            <p class="text-success-700 font-medium mb-2">Recibo cargado correctamente</p>
+                            <div class="flex items-center justify-center gap-2 text-sm text-text-secondary">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1d1a7b400-1767300172920.png" alt="Icono de archivo verificado" class="w-5 h-5">
+                                <span id="uploadedFileName" class="font-caption">archivo.pdf</span>
+                            </div>
+                            <button type="button" id="changeFile" class="mt-4 text-sm text-primary hover:text-primary-700 font-medium">
+                                Cambiar archivo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Format Validation Info -->
+                    <div class="mt-3 flex items-start gap-2 text-xs text-text-tertiary">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1be6adee5-1766529787000.png" alt="Icono de información" class="w-4 h-4 flex-shrink-0 mt-0.5">
+                        <p class="font-caption">El recibo es obligatorio para validar el repostaje. Asegúrate de que sea legible y contenga la información completa.</p>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border-light">
+                    <button type="submit" id="submitButton" class="btn btn-primary flex-1 sm:flex-initial">
+                        <span class="flex items-center justify-center gap-2">
+                            <span id="submitText">Registrar Repostaje</span>
+                            <img id="submitIcon" src="https://img.rocket.new/generatedImages/rocket_gen_img_194c19073-1764742014007.png" alt="Icono de confirmar" class="w-5 h-5">
+                            <svg id="submitSpinner" class="hidden animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <button type="button" id="resetButton" class="btn btn-outline">
+                        <span class="flex items-center justify-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1c89c7557-1766944765404.png" alt="Icono de reiniciar" class="w-5 h-5">
+                            Limpiar Formulario
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Fuel History Section -->
+        <section class="card">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h3 class="text-xl font-heading font-semibold text-primary mb-1">Historial de Repostajes</h3>
+                    <p class="text-sm text-text-secondary font-caption">
+                        <span id="recordCount">0</span> registros encontrados
+                    </p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="searchLocation" 
+                            placeholder="Buscar ubicación..."
+                            class="input pl-10 pr-4 h-10 text-sm w-full sm:w-64"
+                        >
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1b7fbd49e-1766036505327.png" alt="Icono de búsqueda" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2">
+                    </div>
+                    <button id="filterButton" class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_174ff6fc5-1765384100032.png" alt="Icono de filtro" class="w-5 h-5">
+                        <span class="hidden sm:inline">Filtros</span>
+                    </button>
+                    <button id="exportButton" class="btn-accent px-4 h-10 text-sm flex items-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1fc57c870-1767300174503.png" alt="Icono de descargar" class="w-5 h-5">
+                        <span class="hidden sm:inline">Exportar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Panel (Hidden by default) -->
+            <div id="filterPanel" class="hidden mb-6 p-4 bg-primary-50 rounded-lg border border-primary-200">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                        <label for="filterDateFrom" class="input-label text-xs">Desde</label>
+                        <input type="date" id="filterDateFrom" class="input h-10 text-sm">
+                    </div>
+                    <div>
+                        <label for="filterDateTo" class="input-label text-xs">Hasta</label>
+                        <input type="date" id="filterDateTo" class="input h-10 text-sm">
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <button id="applyFilters" class="btn btn-primary h-10 text-sm flex-1">Aplicar</button>
+                        <button id="resetFilters" class="btn-outline h-10 px-3">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1c89c7557-1766944765404.png" alt="Icono de reiniciar" class="w-5 h-5">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop Table View -->
+            <div class="hidden lg:block overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="cursor-pointer hover:bg-primary-100" onclick="sortTable('date')">
+                                <span class="flex items-center gap-2">
+                                    Fecha y Hora
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1896aed5f-1764656753071.png" alt="Ordenar" class="w-4 h-4">
+                                </span>
+                            </th>
+                            <th class="cursor-pointer hover:bg-primary-100" onclick="sortTable('amount')">
+                                <span class="flex items-center gap-2">
+                                    Cantidad (L)
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1896aed5f-1764656753071.png" alt="Ordenar" class="w-4 h-4">
+                                </span>
+                            </th>
+                            <th class="cursor-pointer hover:bg-primary-100" onclick="sortTable('cost')">
+                                <span class="flex items-center gap-2">
+                                    Costo Total
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1896aed5f-1764656753071.png" alt="Ordenar" class="w-4 h-4">
+                                </span>
+                            </th>
+                            <th>Precio/Litro</th>
+                            <th>Ubicación</th>
+                            <th id="driverColumn" class="hidden">Conductor</th>
+                            <th>Recibo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="refuelingTableBody">
+                        <!-- Table rows will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div class="lg:hidden space-y-4" id="refuelingCardContainer">
+                <!-- Cards will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-12">
+                <img src="https://images.unsplash.com/photo-1647483685653-6bb1537d69ee" alt="Sin repostajes" class="w-24 h-24 mx-auto mb-4 opacity-50">
+                <p class="text-text-secondary font-medium mb-2">No hay repostajes registrados</p>
+                <p class="text-sm text-text-tertiary font-caption">Comienza registrando tu primer repostaje usando el formulario superior</p>
+            </div>
+
+            <!-- Pagination -->
+            <div id="pagination" class="hidden mt-6 pt-6 border-t border-border-light flex items-center justify-between">
+                <p class="text-sm text-text-secondary font-caption">
+                    Mostrando <span id="showingFrom">1</span> - <span id="showingTo">10</span> de <span id="totalRecords">0</span>
+                </p>
+                <div class="flex items-center gap-2">
+                    <button id="prevPage" class="btn-outline px-3 h-10 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13205c3d8-1765252084774.png" alt="Anterior" class="w-5 h-5">
+                    </button>
+                    <div id="pageNumbers" class="flex items-center gap-1">
+                        <!-- Page numbers will be inserted here -->
+                    </div>
+                    <button id="nextPage" class="btn-outline px-3 h-10 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1261849e9-1766836029510.png" alt="Siguiente" class="w-5 h-5">
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Receipt Preview Modal -->
+    <div id="receiptModal" class="hidden modal-overlay">
+        <div class="modal max-w-4xl">
+            <div class="p-6 border-b border-border-light flex items-center justify-between">
+                <h3 class="text-xl font-heading font-semibold text-primary">Vista Previa del Recibo</h3>
+                <button id="closeModal" class="text-text-tertiary hover:text-text-primary">
+                    <img src="https://images.unsplash.com/photo-1584311830189-3026b1c2cacb" alt="Cerrar" class="w-6 h-6">
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="receiptPreview" class="bg-background rounded-lg p-4 min-h-96 flex items-center justify-center">
+                    <img id="receiptImage" src="" alt="Vista previa del recibo" class="max-w-full max-h-96 object-contain">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data and state management
+        let refuelingRecords = [];
+        let currentUser = null;
+        let filteredRecords = [];
+        let currentPage = 1;
+        const recordsPerPage = 10;
+        let sortColumn = 'date';
+        let sortDirection = 'desc';
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check authentication
+            const userStr = sessionStorage.getItem('user');
+            if (!userStr) {
+                window.location.href = 'login_authentication.html';
+                return;
+            }
+
+            currentUser = JSON.parse(userStr);
+            
+            // Update UI based on user role
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userRole').textContent = currentUser.role === 'manager' ? 'Gerente' : 'Conductor';
+
+            // Show manager-only navigation items
+            if (currentUser.role === 'manager') {
+                document.getElementById('managerDashboardLink').classList.remove('hidden');
+                document.getElementById('settingsLink').classList.remove('hidden');
+                document.getElementById('managerDashboardLinkMobile').classList.remove('hidden');
+                document.getElementById('settingsLinkMobile').classList.remove('hidden');
+                document.getElementById('driverColumn').classList.remove('hidden');
+            }
+
+            // Set current date
+            const today = new Date('2026-01-01');
+            document.getElementById('currentDate').textContent = formatDate(today);
+            document.getElementById('refuelDate').value = '2026-01-01';
+            document.getElementById('refuelDate').max = '2026-01-01';
+            document.getElementById('refuelTime').value = new Date().toTimeString().slice(0, 5);
+
+            // Load mock data
+            loadMockData();
+            
+            // Initialize event listeners
+            initializeEventListeners();
+            
+            // Display records
+            displayRecords();
+        });
+
+        // Load mock refueling data
+        function loadMockData() {
+            const mockData = [
+                {
+                    id: 1,
+                    date: '2025-12-28',
+                    time: '14:30',
+                    amount: 450.50,
+                    cost: 675.75,
+                    location: 'Repsol - A-2 KM 45, Madrid',
+                    driver: 'Miguel Fernández',
+                    driverUsername: 'driver1',
+                    receiptUrl: 'https://images.unsplash.com/photo-1554224311-beee460201b4?w=400',
+                    receiptStatus: 'verified'
+                },
+                {
+                    id: 2,
+                    date: '2025-12-25',
+                    time: '09:15',
+                    amount: 380.25,
+                    cost: 570.38,
+                    location: 'Cepsa - A-3 KM 120, Valencia',
+                    driver: 'Ana Martínez',
+                    driverUsername: 'driver2',
+                    receiptUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400',
+                    receiptStatus: 'verified'
+                },
+                {
+                    id: 3,
+                    date: '2025-12-22',
+                    time: '16:45',
+                    amount: 425.00,
+                    cost: 637.50,
+                    location: 'BP - A-4 KM 200, Sevilla',
+                    driver: 'Miguel Fernández',
+                    driverUsername: 'driver1',
+                    receiptUrl: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=400',
+                    receiptStatus: 'verified'
+                },
+                {
+                    id: 4,
+                    date: '2025-12-20',
+                    time: '11:20',
+                    amount: 395.75,
+                    cost: 593.63,
+                    location: 'Shell - A-7 KM 85, Barcelona',
+                    driver: 'Ana Martínez',
+                    driverUsername: 'driver2',
+                    receiptUrl: 'https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=400',
+                    receiptStatus: 'verified'
+                },
+                {
+                    id: 5,
+                    date: '2025-12-18',
+                    time: '08:00',
+                    amount: 410.00,
+                    cost: 615.00,
+                    location: 'Galp - A-1 KM 150, Burgos',
+                    driver: 'Miguel Fernández',
+                    driverUsername: 'driver1',
+                    receiptUrl: 'https://images.unsplash.com/photo-1593642532400-2682810df593?w=400',
+                    receiptStatus: 'verified'
+                }
+            ];
+
+            // Filter records based on user role
+            if (currentUser.role === 'driver') {
+                refuelingRecords = mockData.filter(record => record.driverUsername === currentUser.username);
+            } else {
+                refuelingRecords = mockData;
+            }
+
+            filteredRecords = [...refuelingRecords];
+        }
+
+        // Initialize event listeners
+        function initializeEventListeners() {
+            // Logout
+            document.getElementById('logoutButton').addEventListener('click', () => {
+                sessionStorage.removeItem('user');
+                window.location.href = 'login_authentication.html';
+            });
+
+            // Form submission
+            document.getElementById('refuelingForm').addEventListener('submit', handleFormSubmit);
+
+            // Reset form
+            document.getElementById('resetButton').addEventListener('click', resetForm);
+
+            // File upload
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('receiptFile');
+
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('border-primary', 'bg-primary-50');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('border-primary', 'bg-primary-50');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('border-primary', 'bg-primary-50');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileSelect(files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+
+            document.getElementById('removeFile').addEventListener('click', (e) => {
+                e.stopPropagation();
+                resetFileUpload();
+            });
+
+            document.getElementById('changeFile').addEventListener('click', (e) => {
+                e.stopPropagation();
+                resetFileUpload();
+                fileInput.click();
+            });
+
+            // Calculate price per liter
+            document.getElementById('fuelAmount').addEventListener('input', calculatePricePerLiter);
+            document.getElementById('fuelCost').addEventListener('input', calculatePricePerLiter);
+
+            // Filter controls
+            document.getElementById('filterButton').addEventListener('click', toggleFilterPanel);
+            document.getElementById('applyFilters').addEventListener('click', applyFilters);
+            document.getElementById('resetFilters').addEventListener('click', resetFilters);
+            document.getElementById('searchLocation').addEventListener('input', searchLocation);
+
+            // Export
+            document.getElementById('exportButton').addEventListener('click', exportToCSV);
+
+            // Modal
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            document.getElementById('receiptModal').addEventListener('click', (e) => {
+                if (e.target.id === 'receiptModal') closeModal();
+            });
+
+            // Pagination
+            document.getElementById('prevPage').addEventListener('click', () => changePage(currentPage - 1));
+            document.getElementById('nextPage').addEventListener('click', () => changePage(currentPage + 1));
+        }
+
+        // Handle file selection
+        function handleFileSelect(file) {
+            const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            const maxSize = 5 * 1024 * 1024; // 5MB
+
+            if (!validTypes.includes(file.type)) {
+                alert('Formato de archivo no válido. Por favor, selecciona un archivo PDF, JPG o PNG.');
+                return;
+            }
+
+            if (file.size > maxSize) {
+                alert('El archivo es demasiado grande. El tamaño máximo es 5 MB.');
+                return;
+            }
+
+            // Show upload progress
+            document.getElementById('uploadPrompt').classList.add('hidden');
+            document.getElementById('uploadProgress').classList.remove('hidden');
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+
+            // Simulate upload progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 10;
+                document.getElementById('progressFill').style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        document.getElementById('uploadProgress').classList.add('hidden');
+                        document.getElementById('uploadSuccess').classList.remove('hidden');
+                        document.getElementById('uploadedFileName').textContent = file.name;
+                    }, 500);
+                }
+            }, 200);
+        }
+
+        // Reset file upload
+        function resetFileUpload() {
+            document.getElementById('receiptFile').value = '';
+            document.getElementById('uploadPrompt').classList.remove('hidden');
+            document.getElementById('uploadProgress').classList.add('hidden');
+            document.getElementById('uploadSuccess').classList.add('hidden');
+            document.getElementById('progressFill').style.width = '0%';
+        }
+
+        // Calculate price per liter
+        function calculatePricePerLiter() {
+            const amount = parseFloat(document.getElementById('fuelAmount').value) || 0;
+            const cost = parseFloat(document.getElementById('fuelCost').value) || 0;
+            
+            if (amount > 0 && cost > 0) {
+                const pricePerLiter = cost / amount;
+                document.getElementById('pricePerLiter').textContent = pricePerLiter.toFixed(2) + ' EUR/L';
+            } else {
+                document.getElementById('pricePerLiter').textContent = '0.00 EUR/L';
+            }
+        }
+
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            // Validate file upload
+            if (!document.getElementById('uploadSuccess').classList.contains('hidden')) {
+                // Show loading state
+                const submitButton = document.getElementById('submitButton');
+                submitButton.disabled = true;
+                document.getElementById('submitText').textContent = 'Guardando...';
+                document.getElementById('submitIcon').classList.add('hidden');
+                document.getElementById('submitSpinner').classList.remove('hidden');
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Create new record
+                    const formData = new FormData(e.target);
+                    const newRecord = {
+                        id: refuelingRecords.length + 1,
+                        date: formData.get('refuelDate'),
+                        time: formData.get('refuelTime'),
+                        amount: parseFloat(formData.get('fuelAmount')),
+                        cost: parseFloat(formData.get('fuelCost')),
+                        location: formData.get('location'),
+                        driver: currentUser.name,
+                        driverUsername: currentUser.username,
+                        receiptUrl: 'https://images.unsplash.com/photo-1554224311-beee460201b4?w=400',
+                        receiptStatus: 'verified'
+                    };
+
+                    refuelingRecords.unshift(newRecord);
+                    filteredRecords = [...refuelingRecords];
+
+                    // Reset form
+                    resetForm();
+
+                    // Show success message
+                    document.getElementById('successMessage').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById('successMessage').classList.add('hidden');
+                    }, 5000);
+
+                    // Update display
+                    displayRecords();
+
+                    // Reset button state
+                    submitButton.disabled = false;
+                    document.getElementById('submitText').textContent = 'Registrar Repostaje';
+                    document.getElementById('submitIcon').classList.remove('hidden');
+                    document.getElementById('submitSpinner').classList.add('hidden');
+
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 1500);
+            } else {
+                alert('Por favor, carga el recibo antes de continuar.');
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('refuelingForm').reset();
+            document.getElementById('refuelDate').value = '2026-01-01';
+            document.getElementById('refuelTime').value = new Date().toTimeString().slice(0, 5);
+            resetFileUpload();
+            document.getElementById('pricePerLiter').textContent = '0.00 EUR/L';
+        }
+
+        // Display records
+        function displayRecords() {
+            const tableBody = document.getElementById('refuelingTableBody');
+            const cardContainer = document.getElementById('refuelingCardContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            // Update record count
+            document.getElementById('recordCount').textContent = filteredRecords.length;
+
+            if (filteredRecords.length === 0) {
+                tableBody.innerHTML = '';
+                cardContainer.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                document.getElementById('pagination').classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            // Sort records
+            const sortedRecords = [...filteredRecords].sort((a, b) => {
+                let aVal, bVal;
+                
+                switch(sortColumn) {
+                    case 'date':
+                        aVal = new Date(a.date + ' ' + a.time);
+                        bVal = new Date(b.date + ' ' + b.time);
+                        break;
+                    case 'amount':
+                        aVal = a.amount;
+                        bVal = b.amount;
+                        break;
+                    case 'cost':
+                        aVal = a.cost;
+                        bVal = b.cost;
+                        break;
+                    default:
+                        return 0;
+                }
+
+                if (sortDirection === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+
+            // Pagination
+            const totalPages = Math.ceil(sortedRecords.length / recordsPerPage);
+            const startIndex = (currentPage - 1) * recordsPerPage;
+            const endIndex = Math.min(startIndex + recordsPerPage, sortedRecords.length);
+            const pageRecords = sortedRecords.slice(startIndex, endIndex);
+
+            // Update pagination info
+            document.getElementById('showingFrom').textContent = startIndex + 1;
+            document.getElementById('showingTo').textContent = endIndex;
+            document.getElementById('totalRecords').textContent = sortedRecords.length;
+
+            // Desktop table
+            tableBody.innerHTML = pageRecords.map(record => {
+                const pricePerLiter = (record.cost / record.amount).toFixed(2);
+                const driverCell = currentUser.role === 'manager' 
+                    ? `<td class="font-caption">${record.driver}</td>` 
+                    : '';
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <img src="https://api.iconify.design/mdi:calendar-clock.svg?color=%232D5A87" alt="Fecha y hora" class="w-5 h-5">
+                                <div>
+                                    <p class="font-medium text-text-primary">${formatDate(new Date(record.date))}</p>
+                                    <p class="text-xs text-text-tertiary font-caption">${record.time}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="font-data">${record.amount.toFixed(2)} L</td>
+                        <td class="font-data">${record.cost.toFixed(2)} EUR</td>
+                        <td class="font-data text-text-secondary">${pricePerLiter} EUR/L</td>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <img src="https://api.iconify.design/mdi:map-marker.svg?color=%23E67E22" alt="Ubicación" class="w-4 h-4 flex-shrink-0">
+                                <span class="text-sm truncate-1">${record.location}</span>
+                            </div>
+                        </td>
+                        ${driverCell}
+                        <td>
+                            <span class="badge badge-success">
+                                <img src="https://api.iconify.design/mdi:check-circle.svg?color=%2338A169" alt="Verificado" class="w-4 h-4 mr-1">
+                                Verificado
+                            </span>
+                        </td>
+                        <td>
+                            <button onclick="viewReceipt('${record.receiptUrl}')" class="text-primary hover:text-primary-700 font-medium text-sm">
+                                <span class="flex items-center gap-1">
+                                    <img src="https://api.iconify.design/mdi:eye-outline.svg?color=%231E3A5F" alt="Ver recibo" class="w-5 h-5">
+                                    Ver
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Mobile cards
+            cardContainer.innerHTML = pageRecords.map(record => {
+                const pricePerLiter = (record.cost / record.amount).toFixed(2);
+                const driverInfo = currentUser.role === 'manager' 
+                    ? `
+                        <div class="flex items-center gap-2 text-sm">
+                            <img src="https://api.iconify.design/mdi:account.svg?color=%234A5568" alt="Conductor" class="w-4 h-4">
+                            <span class="text-text-secondary font-caption">${record.driver}</span>
+                        </div>
+                    ` 
+                    : '';
+
+                return `
+                    <div class="card p-4">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <img src="https://api.iconify.design/mdi:calendar-clock.svg?color=%232D5A87" alt="Fecha" class="w-5 h-5">
+                                <div>
+                                    <p class="font-medium text-text-primary">${formatDate(new Date(record.date))}</p>
+                                    <p class="text-xs text-text-tertiary font-caption">${record.time}</p>
+                                </div>
+                            </div>
+                            <span class="badge badge-success text-xs">
+                                <img src="https://api.iconify.design/mdi:check-circle.svg?color=%2338A169" alt="Verificado" class="w-3 h-3 mr-1">
+                                Verificado
+                            </span>
+                        </div>
+
+                        <div class="space-y-2 mb-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary font-caption">Cantidad</span>
+                                <span class="font-data font-medium">${record.amount.toFixed(2)} L</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary font-caption">Costo Total</span>
+                                <span class="font-data font-medium text-primary">${record.cost.toFixed(2)} EUR</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary font-caption">Precio/Litro</span>
+                                <span class="font-data text-sm text-text-secondary">${pricePerLiter} EUR/L</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-t border-border-light space-y-2">
+                            <div class="flex items-start gap-2">
+                                <img src="https://api.iconify.design/mdi:map-marker.svg?color=%23E67E22" alt="Ubicación" class="w-4 h-4 flex-shrink-0 mt-0.5">
+                                <span class="text-sm text-text-secondary">${record.location}</span>
+                            </div>
+                            ${driverInfo}
+                        </div>
+
+                        <button onclick="viewReceipt('${record.receiptUrl}')" class="mt-3 w-full btn-outline h-10 text-sm">
+                            <span class="flex items-center justify-center gap-2">
+                                <img src="https://api.iconify.design/mdi:receipt.svg?color=%231E3A5F" alt="Ver recibo" class="w-5 h-5">
+                                Ver Recibo
+                            </span>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // Update pagination
+            updatePagination(totalPages);
+        }
+
+        // Update pagination
+        function updatePagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            const prevButton = document.getElementById('prevPage');
+            const nextButton = document.getElementById('nextPage');
+            const pageNumbers = document.getElementById('pageNumbers');
+
+            if (totalPages <= 1) {
+                pagination.classList.add('hidden');
+                return;
+            }
+
+            pagination.classList.remove('hidden');
+
+            // Update button states
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+
+            // Generate page numbers
+            pageNumbers.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    const button = document.createElement('button');
+                    button.className = `px-3 h-10 rounded-lg text-sm font-medium transition-colors ${
+                        i === currentPage 
+                            ? 'bg-primary text-white' 
+                            : 'text-text-secondary hover:bg-primary-50'
+                    }`;
+                    button.textContent = i;
+                    button.onclick = () => changePage(i);
+                    pageNumbers.appendChild(button);
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'px-2 text-text-tertiary';
+                    ellipsis.textContent = '...';
+                    pageNumbers.appendChild(ellipsis);
+                }
+            }
+        }
+
+        // Change page
+        function changePage(page) {
+            currentPage = page;
+            displayRecords();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Sort table
+        function sortTable(column) {
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'desc';
+            }
+            displayRecords();
+        }
+
+        // Toggle filter panel
+        function toggleFilterPanel() {
+            const panel = document.getElementById('filterPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const dateFrom = document.getElementById('filterDateFrom').value;
+            const dateTo = document.getElementById('filterDateTo').value;
+
+            filteredRecords = refuelingRecords.filter(record => {
+                if (dateFrom && record.date < dateFrom) return false;
+                if (dateTo && record.date > dateTo) return false;
+                return true;
+            });
+
+            currentPage = 1;
+            displayRecords();
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('filterDateFrom').value = '';
+            document.getElementById('filterDateTo').value = '';
+            document.getElementById('searchLocation').value = '';
+            filteredRecords = [...refuelingRecords];
+            currentPage = 1;
+            displayRecords();
+        }
+
+        // Search location
+        function searchLocation(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            filteredRecords = refuelingRecords.filter(record => 
+                record.location.toLowerCase().includes(searchTerm)
+            );
+            currentPage = 1;
+            displayRecords();
+        }
+
+        // View receipt
+        function viewReceipt(url) {
+            document.getElementById('receiptImage').src = url;
+            document.getElementById('receiptModal').classList.remove('hidden');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('receiptModal').classList.add('hidden');
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            const headers = currentUser.role === 'manager'
+                ? ['Fecha', 'Hora', 'Cantidad (L)', 'Costo (EUR)', 'Precio/Litro (EUR)', 'Ubicación', 'Conductor', 'Estado Recibo']
+                : ['Fecha', 'Hora', 'Cantidad (L)', 'Costo (EUR)', 'Precio/Litro (EUR)', 'Ubicación', 'Estado Recibo'];
+
+            const rows = filteredRecords.map(record => {
+                const pricePerLiter = (record.cost / record.amount).toFixed(2);
+                const baseRow = [
+                    record.date,
+                    record.time,
+                    record.amount.toFixed(2),
+                    record.cost.toFixed(2),
+                    pricePerLiter,
+                    record.location,
+                ];
+
+                if (currentUser.role === 'manager') {
+                    baseRow.push(record.driver);
+                }
+
+                baseRow.push(record.receiptStatus === 'verified' ? 'Verificado' : 'Pendiente');
+                return baseRow;
+            });
+
+            const csvContent = [
+                headers.join(','),
+                ...rows.map(row => row.join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `repostajes_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Utility functions
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
