@@ -1,730 +1,700 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Gestión - Transporte360</title>
-    <link rel="stylesheet" href="../css/main.css">
-  
-  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransporte1153back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
-  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
-  </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Gestión - Transporte360</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+
 <body class="bg-background min-h-screen">
-    <!-- Navigation Header -->
-    <header class="bg-surface border-b border-border-light sticky top-0 z-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center gap-4">
-                    <svg class="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="64" height="64" rx="12" fill="#1E3A5F"/>
-                        <path d="M16 32L32 20L48 32M20 36V44C20 45.1046 20.8954 46 22 46H42C43.1046 46 44 45.1046 44 44V36" stroke="#E67E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="32" cy="32" r="4" fill="#E67E22"/>
-                    </svg>
-                    <div>
-                        <h1 class="text-xl font-heading font-bold text-primary">Transporte360</h1>
-                        <p class="text-xs text-text-tertiary font-caption">Panel de Gestión</p>
-                    </div>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <nav class="hidden lg:flex items-center gap-2">
-                    <a href="manager_dashboard.html" class="px-4 py-2 rounded-lg bg-primary-50 text-primary font-medium transition-colors">
-                        <span class="flex items-center gap-2">
-                            <img src="https://images.unsplash.com/photo-1590084928815-dbc0ec326797" alt="Icono de panel" class="w-5 h-5">
-                            Panel
-                        </span>
-                    </a>
-                    <a href="trip_management.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
-                        <span class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1403dd4a2-1764846857059.png" alt="Icono de viajes" class="w-5 h-5">
-                            Viajes
-                        </span>
-                    </a>
-                    <a href="fuel_refueling_tracking.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
-                        <span class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-5 h-5">
-                            Combustible
-                        </span>
-                    </a>
-                    <a href="settings_configuration.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
-                        <span class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1293e4bfe-1767102860924.png" alt="Icono de configuración" class="w-5 h-5">
-                            Configuración
-                        </span>
-                    </a>
-                    <a href="data_export_interface.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
-                        <span class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10c43ff3f-1766600185244.png" alt="Icono de exportar" class="w-5 h-5">
-                            Exportar
-                        </span>
-                    </a>
-                </nav>
-
-                <!-- User Menu -->
-                <div class="flex items-center gap-4">
-                    <div class="hidden md:block text-right">
-                        <p class="text-sm font-medium text-text-primary" id="userName">Carlos Rodríguez</p>
-                        <p class="text-xs text-text-tertiary font-caption">Gerente</p>
-                    </div>
-                    <button id="logoutButton" class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a920af4a-1766478424944.png" alt="Icono de cerrar sesión" class="w-4 h-4">
-                        <span class="hidden sm:inline">Cerrar Sesión</span>
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobileMenuButton" class="lg:hidden p-2 rounded-lg hover:bg-primary-50 transition-colors">
-                    <img src="https://images.unsplash.com/photo-1663000806840-8e16dc41e7d7" alt="Menú móvil" class="w-6 h-6">
-                </button>
-            </div>
+  <!-- Navigation Header -->
+  <header class="bg-surface border-b border-border-light sticky top-0 z-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo and Brand -->
+        <div class="flex items-center gap-4">
+          <svg class="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="64" height="64" rx="12" fill="#1E3A5F"/>
+            <path d="M16 32L32 20L48 32M20 36V44C20 45.1046 20.8954 46 22 46H42C43.1046 46 44 45.1046 44 44V36"
+              stroke="#E67E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="32" cy="32" r="4" fill="#E67E22"/>
+          </svg>
+          <div>
+            <h1 class="text-xl font-heading font-bold text-primary">Transporte360</h1>
+            <p class="text-xs text-text-tertiary font-caption">Panel de Gestión</p>
+          </div>
         </div>
 
-        <!-- Mobile Navigation -->
-        <div id="mobileMenu" class="hidden lg:hidden border-t border-border-light bg-surface">
-            <nav class="px-4 py-3 space-y-1">
-                <a href="manager_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-50 text-primary font-medium">
-                    <img src="https://images.unsplash.com/photo-1590084928815-dbc0ec326797" alt="Icono de panel" class="w-5 h-5">
-                    Panel de Gestión
-                </a>
-                <a href="trip_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
-                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1403dd4a2-1764846857059.png" alt="Icono de viajes" class="w-5 h-5">
-                    Gestión de Viajes
-                </a>
-                <a href="fuel_refueling_tracking.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
-                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-5 h-5">
-                    Repostaje
-                </a>
-                <a href="settings_configuration.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
-                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1293e4bfe-1767102860924.png" alt="Icono de configuración" class="w-5 h-5">
-                    Configuración
-                </a>
-                <a href="data_export_interface.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
-                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10c43ff3f-1766600185244.png" alt="Icono de exportar" class="w-5 h-5">
-                    Exportar Datos
-                </a>
-            </nav>
-        </div>
-    </header>
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center gap-2">
+          <a href="manager_dashboard.html" class="px-4 py-2 rounded-lg bg-primary-50 text-primary font-medium transition-colors">
+            <span class="flex items-center gap-2">
+              <img src="https://images.unsplash.com/photo-1590084928815-dbc0ec326797" alt="Icono de panel" class="w-5 h-5">
+              Panel
+            </span>
+          </a>
+          <a href="trip_management.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
+            <span class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1403dd4a2-1764846857059.png" alt="Icono de viajes" class="w-5 h-5">
+              Viajes
+            </span>
+          </a>
+          <a href="fuel_refueling_tracking.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
+            <span class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-5 h-5">
+              Combustible
+            </span>
+          </a>
+          <a href="settings_configuration.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
+            <span class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1293e4bfe-1767102860924.png" alt="Icono de configuración" class="w-5 h-5">
+              Configuración
+            </span>
+          </a>
+          <a href="data_export_interface.html" class="px-4 py-2 rounded-lg text-text-secondary hover:bg-primary-50 hover:text-primary font-medium transition-colors">
+            <span class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10c43ff3f-1766600185244.png" alt="Icono de exportar" class="w-5 h-5">
+              Exportar
+            </span>
+          </a>
+        </nav>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Page Header -->
-        <div class="mb-8">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                    <h2 class="text-3xl font-heading font-bold text-primary mb-2">Panel de Gestión</h2>
-                    <p class="text-text-secondary">Resumen mensual de operaciones - Enero 2026</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button id="refreshButton" class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a7b82d76-1766574480888.png" alt="Icono de actualizar" class="w-4 h-4">
-                        Actualizar
-                    </button>
-                    <select id="monthFilter" class="input h-10 text-sm w-auto">
-                        <option value="2026-01">Enero 2026</option>
-                        <option value="2025-12">Diciembre 2025</option>
-                        <option value="2025-11">Noviembre 2025</option>
-                    </select>
-                </div>
-            </div>
+        <!-- User Menu -->
+        <div class="flex items-center gap-4">
+          <div class="hidden md:block text-right">
+            <p class="text-sm font-medium text-text-primary" id="userName">Carlos Rodríguez</p>
+            <p class="text-xs text-text-tertiary font-caption">Gerente</p>
+          </div>
+          <button id="logoutButton" class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a920af4a-1766478424944.png" alt="Icono de cerrar sesión" class="w-4 h-4">
+            <span class="hidden sm:inline">Cerrar Sesión</span>
+          </button>
         </div>
 
-        <!-- KPI Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <!-- Total Kilometers Card -->
-            <div class="card hover:shadow-lg">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="p-3 bg-primary-50 rounded-lg">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10e56f5f4-1766516152559.png" alt="Icono de kilómetros" class="w-8 h-8">
-                    </div>
-                    <span class="badge badge-success text-xs">+12.5%</span>
-                </div>
-                <h3 class="text-sm font-caption text-text-secondary mb-1">Kilómetros Totales</h3>
-                <p class="text-3xl font-heading font-bold text-primary mb-2 data-value" id="totalKm">45,280</p>
-                <div class="flex items-center gap-2 text-xs text-text-tertiary">
-                    <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9" alt="Tendencia positiva" class="w-4 h-4">
-                    <span>vs mes anterior</span>
-                </div>
-            </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuButton" class="lg:hidden p-2 rounded-lg hover:bg-primary-50 transition-colors">
+          <img src="https://images.unsplash.com/photo-1663000806840-8e16dc41e7d7" alt="Menú móvil" class="w-6 h-6">
+        </button>
+      </div>
+    </div>
 
-            <!-- Empty Kilometers Card -->
-            <div class="card hover:shadow-lg">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="p-3 bg-warning-50 rounded-lg">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10e56f5f4-1766516152559.png" alt="Icono de kilómetros vacíos" class="w-8 h-8">
-                    </div>
-                    <span class="badge badge-warning text-xs">18.2%</span>
-                </div>
-                <h3 class="text-sm font-caption text-text-secondary mb-1">Kilómetros Vacíos</h3>
-                <p class="text-3xl font-heading font-bold text-warning-600 mb-2 data-value" id="emptyKm">8,241</p>
-                <div class="flex items-center gap-2 text-xs text-text-tertiary">
-                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a01d07f3-1767221642580.png" alt="Tendencia negativa" class="w-4 h-4">
-                    <span>-3.1% vs objetivo</span>
-                </div>
-            </div>
+    <!-- Mobile Navigation -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-border-light bg-surface">
+      <nav class="px-4 py-3 space-y-1">
+        <a href="manager_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-50 text-primary font-medium">
+          <img src="https://images.unsplash.com/photo-1590084928815-dbc0ec326797" alt="Icono de panel" class="w-5 h-5">
+          Panel de Gestión
+        </a>
+        <a href="trip_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
+          <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1403dd4a2-1764846857059.png" alt="Icono de viajes" class="w-5 h-5">
+          Gestión de Viajes
+        </a>
+        <a href="fuel_refueling_tracking.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
+          <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-5 h-5">
+          Repostaje
+        </a>
+        <a href="settings_configuration.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
+          <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1293e4bfe-1767102860924.png" alt="Icono de configuración" class="w-5 h-5">
+          Configuración
+        </a>
+        <a href="data_export_interface.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-primary-50">
+          <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10c43ff3f-1766600185244.png" alt="Icono de exportar" class="w-5 h-5">
+          Exportar Datos
+        </a>
+      </nav>
+    </div>
+  </header>
 
-            <!-- Revenue Card -->
-            <div class="card hover:shadow-lg">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="p-3 bg-success-50 rounded-lg">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_177fb2942-1766865426686.png" alt="Icono de ingresos" class="w-8 h-8">
-                    </div>
-                    <span class="badge badge-success text-xs">+8.7%</span>
-                </div>
-                <h3 class="text-sm font-caption text-text-secondary mb-1">Ingresos Totales</h3>
-                <p class="text-3xl font-heading font-bold text-success-600 mb-2 data-value" id="totalRevenue">€54,336</p>
-                <div class="flex items-center gap-2 text-xs text-text-tertiary">
-                    <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9" alt="Tendencia positiva" class="w-4 h-4">
-                    <span>vs mes anterior</span>
-                </div>
-            </div>
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 class="text-3xl font-heading font-bold text-primary mb-2">Panel de Gestión</h2>
+          <p class="text-text-secondary">Resumen mensual de operaciones - Enero 2026</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="refreshButton" class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a7b82d76-1766574480888.png" alt="Icono de actualizar" class="w-4 h-4">
+            Actualizar
+          </button>
+          <select id="monthFilter" class="input h-10 text-sm w-auto">
+            <option value="2026-01">Enero 2026</option>
+            <option value="2025-12">Diciembre 2025</option>
+            <option value="2025-11">Noviembre 2025</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-            <!-- Profit Card -->
-            <div class="card hover:shadow-lg">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="p-3 bg-accent-50 rounded-lg">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1ef389298-1767300176791.png" alt="Icono de beneficio" class="w-8 h-8">
-                    </div>
-                    <span class="badge badge-primary text-xs">+15.3%</span>
-                </div>
-                <h3 class="text-sm font-caption text-text-secondary mb-1">Beneficio Neto</h3>
-                <p class="text-3xl font-heading font-bold text-accent mb-2 data-value" id="netProfit">€12,847</p>
-                <div class="flex items-center gap-2 text-xs text-text-tertiary">
-                    <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9" alt="Tendencia positiva" class="w-4 h-4">
-                    <span>Margen: 23.6%</span>
-                </div>
+    <!-- KPI Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Total Kilometers Card -->
+      <div class="card hover:shadow-lg">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 bg-primary-50 rounded-lg">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10e56f5f4-1766516152559.png" alt="Icono de kilómetros" class="w-8 h-8">
+          </div>
+          <span class="badge badge-success text-xs">+12.5%</span>
+        </div>
+        <h3 class="text-sm font-caption text-text-secondary mb-1">Kilómetros Totales</h3>
+        <p class="text-3xl font-heading font-bold text-primary mb-2 data-value" id="totalKm">45,280</p>
+        <div class="flex items-center gap-2 text-xs text-text-tertiary">
+          <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9" alt="Tendencia positiva" class="w-4 h-4">
+          <span>vs mes anterior</span>
+        </div>
+      </div>
+
+      <!-- Empty Kilometers Card -->
+      <div class="card hover:shadow-lg">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 bg-warning-50 rounded-lg">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10e56f5f4-1766516152559.png" alt="Icono de kilómetros vacíos" class="w-8 h-8">
+          </div>
+          <span class="badge badge-warning text-xs">18.2%</span>
+        </div>
+        <h3 class="text-sm font-caption text-text-secondary mb-1">Kilómetros Vacíos</h3>
+        <p class="text-3xl font-heading font-bold text-warning-600 mb-2 data-value" id="emptyKm">8,241</p>
+        <div class="flex items-center gap-2 text-xs text-text-tertiary">
+          <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a01d07f3-1767221642580.png" alt="Tendencia negativa" class="w-4 h-4">
+          <span>-3.1% vs objetivo</span>
+        </div>
+      </div>
+
+      <!-- Revenue Card -->
+      <div class="card hover:shadow-lg">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 bg-success-50 rounded-lg">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_177fb2942-1766865426686.png" alt="Icono de ingresos" class="w-8 h-8">
+          </div>
+          <span class="badge badge-success text-xs">+8.7%</span>
+        </div>
+        <h3 class="text-sm font-caption text-text-secondary mb-1">Ingresos Totales</h3>
+        <p class="text-3xl font-heading font-bold text-success-600 mb-2 data-value" id="totalRevenue">€54,336</p>
+        <div class="flex items-center gap-2 text-xs text-text-tertiary">
+          <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9" alt="Tendencia positiva" class="w-4 h-4">
+          <span>vs mes anterior</span>
+        </div>
+      </div>
+
+      <!-- Profit Card -->
+      <div class="card hover:shadow-lg">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 bg-accent-50 rounded-lg">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1ef389298-1767300176791.png" alt="Icono de beneficio" class="w-8 h-8">
+          </div>
+          <span class="badge badge-primary text-xs">+15.3%</span>
+        </div>
+        <h3 class="text-sm font-caption text-text-secondary mb-1">Beneficio Neto</h3>
+        <p class="text-3xl font-heading font-bold text-accent mb-2 data-value" id="netProfit">€12,847</p>
+        <div class="flex items-center gap-2 text-xs text-text-tertiary">
+          <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9" alt="Tendencia positiva" class="w-4 h-4">
+          <span>Margen: 23.6%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cost Breakdown Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Variable Costs -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-error-50 rounded-lg">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_123dbfcbf-1767300172219.png" alt="Icono de costes variables" class="w-6 h-6">
+          </div>
+          <h3 class="text-lg font-heading font-semibold text-primary">Costes Variables</h3>
+        </div>
+        <p class="text-2xl font-heading font-bold text-error-600 mb-3 data-value" id="variableCosts">€18,560</p>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Combustible</span>
+            <span class="font-medium data-value">€12,340</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Peajes</span>
+            <span class="font-medium data-value">€4,520</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Otros</span>
+            <span class="font-medium data-value">€1,700</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fuel Costs -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-warning-50 rounded-lg">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-6 h-6">
+          </div>
+          <h3 class="text-lg font-heading font-semibold text-primary">Combustible Real</h3>
+        </div>
+        <p class="text-2xl font-heading font-bold text-warning-600 mb-3 data-value" id="actualFuelCosts">€12,340</p>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Litros totales</span>
+            <span class="font-medium data-value">8,227 L</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Precio medio</span>
+            <span class="font-medium data-value">€1.50/L</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Consumo medio</span>
+            <span class="font-medium data-value">18.2 L/100km</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fixed Costs -->
+      <div class="card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-secondary-50 rounded-lg">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_17637776c-1767300172832.png" alt="Icono de costes fijos" class="w-6 h-6">
+          </div>
+          <h3 class="text-lg font-heading font-semibold text-primary">Costes Fijos Asignados</h3>
+        </div>
+        <p class="text-2xl font-heading font-bold text-secondary mb-3 data-value" id="fixedCosts">€10,589</p>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Seguros</span>
+            <span class="font-medium data-value">€4,200</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Mantenimiento</span>
+            <span class="font-medium data-value">€3,890</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-text-secondary">Otros</span>
+            <span class="font-medium data-value">€2,499</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <!-- Monthly Trend Chart -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-heading font-semibold text-primary">Tendencia Mensual</h3>
+          <select class="input h-10 text-sm w-auto">
+            <option>Últimos 6 meses</option>
+            <option>Últimos 12 meses</option>
+          </select>
+        </div>
+        <div class="h-64 flex items-center justify-center bg-primary-50 rounded-lg" id="trendChart">
+          <svg class="w-full h-full p-4" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="20" x2="40" y2="180" stroke="#E5E7EB" stroke-width="1"/>
+            <line x1="40" y1="180" x2="380" y2="180" stroke="#E5E7EB" stroke-width="1"/>
+
+            <text x="30" y="25" font-size="10" fill="#718096" text-anchor="end">60k</text>
+            <text x="30" y="65" font-size="10" fill="#718096" text-anchor="end">45k</text>
+            <text x="30" y="105" font-size="10" fill="#718096" text-anchor="end">30k</text>
+            <text x="30" y="145" font-size="10" fill="#718096" text-anchor="end">15k</text>
+            <text x="30" y="185" font-size="10" fill="#718096" text-anchor="end">0</text>
+
+            <polyline points="60,80 110,65 160,70 210,55 260,50 310,45 360,40"
+              fill="none" stroke="#38A169" stroke-width="3" stroke-linecap="round"/>
+
+            <polyline points="60,120 110,110 160,115 210,100 260,95 310,90 360,85"
+              fill="none" stroke="#E53E3E" stroke-width="3" stroke-linecap="round"/>
+
+            <polyline points="60,150 110,145 160,148 210,135 260,130 310,125 360,120"
+              fill="none" stroke="#E67E22" stroke-width="3" stroke-linecap="round"/>
+
+            <text x="60" y="195" font-size="10" fill="#718096" text-anchor="middle">Ago</text>
+            <text x="110" y="195" font-size="10" fill="#718096" text-anchor="middle">Sep</text>
+            <text x="160" y="195" font-size="10" fill="#718096" text-anchor="middle">Oct</text>
+            <text x="210" y="195" font-size="10" fill="#718096" text-anchor="middle">Nov</text>
+            <text x="260" y="195" font-size="10" fill="#718096" text-anchor="middle">Dic</text>
+            <text x="310" y="195" font-size="10" fill="#718096" text-anchor="middle">Ene</text>
+
+            <circle cx="50" cy="15" r="3" fill="#38A169"/>
+            <text x="58" y="18" font-size="10" fill="#4A5568">Ingresos</text>
+
+            <circle cx="120" cy="15" r="3" fill="#E53E3E"/>
+            <text x="128" y="18" font-size="10" fill="#4A5568">Costes</text>
+
+            <circle cx="180" cy="15" r="3" fill="#E67E22"/>
+            <text x="188" y="18" font-size="10" fill="#4A5568">Beneficio</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Trip Type Distribution -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-heading font-semibold text-primary">Distribución de Viajes</h3>
+          <span class="text-sm text-text-tertiary font-caption">Total: 142 viajes</span>
+        </div>
+        <div class="h-64 flex items-center justify-center" id="distributionChart">
+          <svg class="w-full h-full p-4" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="70" fill="#38A169" opacity="0.9"/>
+            <path d="M 100 100 L 100 30 A 70 70 0 0 1 155 145 Z" fill="#E67E22" opacity="0.9"/>
+
+            <text x="70" y="90" font-size="14" fill="white" font-weight="bold">81.8%</text>
+            <text x="60" y="105" font-size="10" fill="white">Cargados</text>
+
+            <text x="130" y="110" font-size="14" fill="white" font-weight="bold">18.2%</text>
+            <text x="125" y="125" font-size="10" fill="white">Vacíos</text>
+
+            <rect x="200" y="70" width="15" height="15" fill="#38A169" rx="3"/>
+            <text x="220" y="82" font-size="12" fill="#4A5568">Viajes Cargados</text>
+            <text x="220" y="95" font-size="10" fill="#718096">116 viajes</text>
+
+            <rect x="200" y="110" width="15" height="15" fill="#E67E22" rx="3"/>
+            <text x="220" y="122" font-size="12" fill="#4A5568">Viajes Vacíos</text>
+            <text x="220" y="135" font-size="10" fill="#718096">26 viajes</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity Table -->
+    <div class="card">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <h3 class="text-xl font-heading font-semibold text-primary">Actividad Reciente</h3>
+        <div class="flex flex-wrap items-center gap-3">
+          <select id="driverFilter" class="input h-10 text-sm w-auto">
+            <option value="">Todos los conductores</option>
+            <option value="driver1">Miguel Fernández</option>
+            <option value="driver2">Ana Martínez</option>
+          </select>
+          <select id="tripTypeFilter" class="input h-10 text-sm w-auto">
+            <option value="">Todos los tipos</option>
+            <option value="loaded">Cargados</option>
+            <option value="empty">Vacíos</option>
+          </select>
+          <button class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_174ff6fc5-1765384100032.png" alt="Icono de filtro" class="w-4 h-4">
+            Filtrar
+          </button>
+        </div>
+      </div>
+
+      <!-- Desktop Table -->
+      <div class="hidden lg:block overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Conductor</th>
+              <th>Camión</th>
+              <th>Tipo</th>
+              <th>Origen → Destino</th>
+              <th class="text-right">Distancia</th>
+              <th class="text-right">Ingresos</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="activityTableBody">
+            <tr>
+              <td class="font-data">15/01/2026</td>
+              <td>Miguel Fernández</td>
+              <td class="font-data">ABC-1234</td>
+              <td><span class="badge badge-success">Cargado</span></td>
+              <td class="text-sm">Madrid → Barcelona</td>
+              <td class="text-right font-data">628 km</td>
+              <td class="text-right font-data text-success-600">€753.60</td>
+              <td><span class="badge badge-primary">Completado</span></td>
+            </tr>
+            <tr>
+              <td class="font-data">15/01/2026</td>
+              <td>Ana Martínez</td>
+              <td class="font-data">XYZ-5678</td>
+              <td><span class="badge badge-warning">Vacío</span></td>
+              <td class="text-sm">Valencia → Sevilla</td>
+              <td class="text-right font-data">542 km</td>
+              <td class="text-right font-data text-text-tertiary">€0.00</td>
+              <td><span class="badge badge-primary">Completado</span></td>
+            </tr>
+            <tr>
+              <td class="font-data">14/01/2026</td>
+              <td>Miguel Fernández</td>
+              <td class="font-data">ABC-1234</td>
+              <td><span class="badge badge-success">Cargado</span></td>
+              <td class="text-sm">Bilbao → Madrid</td>
+              <td class="text-right font-data">395 km</td>
+              <td class="text-right font-data text-success-600">€474.00</td>
+              <td><span class="badge badge-primary">Completado</span></td>
+            </tr>
+            <tr>
+              <td class="font-data">14/01/2026</td>
+              <td>Ana Martínez</td>
+              <td class="font-data">XYZ-5678</td>
+              <td><span class="badge badge-success">Cargado</span></td>
+              <td class="text-sm">Sevilla → Valencia</td>
+              <td class="text-right font-data">542 km</td>
+              <td class="text-right font-data text-success-600">€650.40</td>
+              <td><span class="badge badge-primary">Completado</span></td>
+            </tr>
+            <tr>
+              <td class="font-data">13/01/2026</td>
+              <td>Miguel Fernández</td>
+              <td class="font-data">ABC-1234</td>
+              <td><span class="badge badge-warning">Vacío</span></td>
+              <td class="text-sm">Barcelona → Bilbao</td>
+              <td class="text-right font-data">620 km</td>
+              <td class="text-right font-data text-text-tertiary">€0.00</td>
+              <td><span class="badge badge-primary">Completado</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Cards -->
+      <div class="lg:hidden space-y-4" id="activityCardsContainer">
+        <div class="border border-border-light rounded-lg p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-medium text-primary">Miguel Fernández</p>
+              <p class="text-sm text-text-tertiary font-data">ABC-1234</p>
             </div>
+            <span class="badge badge-success">Cargado</span>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_12b3c411e-1767116048101.png" alt="Icono de fecha" class="w-4 h-4">
+              <span class="text-text-secondary font-data">15/01/2026</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1f18cf4a9-1764649024474.png" alt="Icono de ruta" class="w-4 h-4">
+              <span class="text-text-secondary">Madrid → Barcelona</span>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-border-light">
+              <span class="text-text-tertiary">Distancia:</span>
+              <span class="font-medium font-data">628 km</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-text-tertiary">Ingresos:</span>
+              <span class="font-medium text-success-600 font-data">€753.60</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Cost Breakdown Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <!-- Variable Costs -->
-            <div class="card">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="p-2 bg-error-50 rounded-lg">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_123dbfcbf-1767300172219.png" alt="Icono de costes variables" class="w-6 h-6">
-                    </div>
-                    <h3 class="text-lg font-heading font-semibold text-primary">Costes Variables</h3>
-                </div>
-                <p class="text-2xl font-heading font-bold text-error-600 mb-3 data-value" id="variableCosts">€18,560</p>
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Combustible</span>
-                        <span class="font-medium data-value">€12,340</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Peajes</span>
-                        <span class="font-medium data-value">€4,520</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Otros</span>
-                        <span class="font-medium data-value">€1,700</span>
-                    </div>
-                </div>
+        <div class="border border-border-light rounded-lg p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-medium text-primary">Ana Martínez</p>
+              <p class="text-sm text-text-tertiary font-data">XYZ-5678</p>
             </div>
-
-            <!-- Fuel Costs -->
-            <div class="card">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="p-2 bg-warning-50 rounded-lg">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-6 h-6">
-                    </div>
-                    <h3 class="text-lg font-heading font-semibold text-primary">Combustible Real</h3>
-                </div>
-                <p class="text-2xl font-heading font-bold text-warning-600 mb-3 data-value" id="actualFuelCosts">€12,340</p>
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Litros totales</span>
-                        <span class="font-medium data-value">8,227 L</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Precio medio</span>
-                        <span class="font-medium data-value">€1.50/L</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Consumo medio</span>
-                        <span class="font-medium data-value">18.2 L/100km</span>
-                    </div>
-                </div>
+            <span class="badge badge-warning">Vacío</span>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_12b3c411e-1767116048101.png" alt="Icono de fecha" class="w-4 h-4">
+              <span class="text-text-secondary font-data">15/01/2026</span>
             </div>
-
-            <!-- Fixed Costs -->
-            <div class="card">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="p-2 bg-secondary-50 rounded-lg">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_17637776c-1767300172832.png" alt="Icono de costes fijos" class="w-6 h-6">
-                    </div>
-                    <h3 class="text-lg font-heading font-semibold text-primary">Costes Fijos Asignados</h3>
-                </div>
-                <p class="text-2xl font-heading font-bold text-secondary mb-3 data-value" id="fixedCosts">€10,589</p>
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Seguros</span>
-                        <span class="font-medium data-value">€4,200</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Mantenimiento</span>
-                        <span class="font-medium data-value">€3,890</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-text-secondary">Otros</span>
-                        <span class="font-medium data-value">€2,499</span>
-                    </div>
-                </div>
+            <div class="flex items-center gap-2">
+              <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1f18cf4a9-1764649024474.png" alt="Icono de ruta" class="w-4 h-4">
+              <span class="text-text-secondary">Valencia → Sevilla</span>
             </div>
+            <div class="flex items-center justify-between pt-2 border-t border-border-light">
+              <span class="text-text-tertiary">Distancia:</span>
+              <span class="font-medium font-data">542 km</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-text-tertiary">Ingresos:</span>
+              <span class="font-medium text-text-tertiary font-data">€0.00</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <!-- Charts Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Monthly Trend Chart -->
-            <div class="card">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-xl font-heading font-semibold text-primary">Tendencia Mensual</h3>
-                    <select class="input h-10 text-sm w-auto">
-                        <option>Últimos 6 meses</option>
-                        <option>Últimos 12 meses</option>
-                    </select>
-                </div>
-                <div class="h-64 flex items-center justify-center bg-primary-50 rounded-lg" id="trendChart">
-                    <svg class="w-full h-full p-4" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Grid Lines -->
-                        <line x1="40" y1="20" x2="40" y2="180" stroke="#E5E7EB" stroke-width="1"/>
-                        <line x1="40" y1="180" x2="380" y2="180" stroke="#E5E7EB" stroke-width="1"/>
-                        
-                        <!-- Y-axis labels -->
-                        <text x="30" y="25" font-size="10" fill="#718096" text-anchor="end">60k</text>
-                        <text x="30" y="65" font-size="10" fill="#718096" text-anchor="end">45k</text>
-                        <text x="30" y="105" font-size="10" fill="#718096" text-anchor="end">30k</text>
-                        <text x="30" y="145" font-size="10" fill="#718096" text-anchor="end">15k</text>
-                        <text x="30" y="185" font-size="10" fill="#718096" text-anchor="end">0</text>
-                        
-                        <!-- Revenue Line -->
-                        <polyline points="60,80 110,65 160,70 210,55 260,50 310,45 360,40" 
-                                  fill="none" stroke="#38A169" stroke-width="3" stroke-linecap="round"/>
-                        
-                        <!-- Costs Line -->
-                        <polyline points="60,120 110,110 160,115 210,100 260,95 310,90 360,85" 
-                                  fill="none" stroke="#E53E3E" stroke-width="3" stroke-linecap="round"/>
-                        
-                        <!-- Profit Line -->
-                        <polyline points="60,150 110,145 160,148 210,135 260,130 310,125 360,120" 
-                                  fill="none" stroke="#E67E22" stroke-width="3" stroke-linecap="round"/>
-                        
-                        <!-- X-axis labels -->
-                        <text x="60" y="195" font-size="10" fill="#718096" text-anchor="middle">Ago</text>
-                        <text x="110" y="195" font-size="10" fill="#718096" text-anchor="middle">Sep</text>
-                        <text x="160" y="195" font-size="10" fill="#718096" text-anchor="middle">Oct</text>
-                        <text x="210" y="195" font-size="10" fill="#718096" text-anchor="middle">Nov</text>
-                        <text x="260" y="195" font-size="10" fill="#718096" text-anchor="middle">Dic</text>
-                        <text x="310" y="195" font-size="10" fill="#718096" text-anchor="middle">Ene</text>
-                        
-                        <!-- Legend -->
-                        <circle cx="50" cy="15" r="3" fill="#38A169"/>
-                        <text x="58" y="18" font-size="10" fill="#4A5568">Ingresos</text>
-                        
-                        <circle cx="120" cy="15" r="3" fill="#E53E3E"/>
-                        <text x="128" y="18" font-size="10" fill="#4A5568">Costes</text>
-                        
-                        <circle cx="180" cy="15" r="3" fill="#E67E22"/>
-                        <text x="188" y="18" font-size="10" fill="#4A5568">Beneficio</text>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Trip Type Distribution -->
-            <div class="card">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-xl font-heading font-semibold text-primary">Distribución de Viajes</h3>
-                    <span class="text-sm text-text-tertiary font-caption">Total: 142 viajes</span>
-                </div>
-                <div class="h-64 flex items-center justify-center" id="distributionChart">
-                    <svg class="w-full h-full p-4" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Pie Chart -->
-                        <circle cx="100" cy="100" r="70" fill="#38A169" opacity="0.9"/>
-                        <path d="M 100 100 L 100 30 A 70 70 0 0 1 155 145 Z" fill="#E67E22" opacity="0.9"/>
-                        
-                        <!-- Labels -->
-                        <text x="70" y="90" font-size="14" fill="white" font-weight="bold">81.8%</text>
-                        <text x="60" y="105" font-size="10" fill="white">Cargados</text>
-                        
-                        <text x="130" y="110" font-size="14" fill="white" font-weight="bold">18.2%</text>
-                        <text x="125" y="125" font-size="10" fill="white">Vacíos</text>
-                        
-                        <!-- Legend -->
-                        <rect x="200" y="70" width="15" height="15" fill="#38A169" rx="3"/>
-                        <text x="220" y="82" font-size="12" fill="#4A5568">Viajes Cargados</text>
-                        <text x="220" y="95" font-size="10" fill="#718096">116 viajes</text>
-                        
-                        <rect x="200" y="110" width="15" height="15" fill="#E67E22" rx="3"/>
-                        <text x="220" y="122" font-size="12" fill="#4A5568">Viajes Vacíos</text>
-                        <text x="220" y="135" font-size="10" fill="#718096">26 viajes</text>
-                    </svg>
-                </div>
-            </div>
+      <div class="flex items-center justify-between mt-6 pt-6 border-t border-border-light">
+        <p class="text-sm text-text-secondary">
+          Mostrando <span class="font-medium">1-5</span> de <span class="font-medium">142</span> viajes
+        </p>
+        <div class="flex items-center gap-2">
+          <button class="btn-outline px-3 h-9 text-sm" disabled>
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13205c3d8-1765252084774.png" alt="Anterior" class="w-5 h-5">
+          </button>
+          <button class="btn-primary px-3 h-9 text-sm">1</button>
+          <button class="btn-outline px-3 h-9 text-sm">2</button>
+          <button class="btn-outline px-3 h-9 text-sm">3</button>
+          <button class="btn-outline px-3 h-9 text-sm">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1261849e9-1766836029510.png" alt="Siguiente" class="w-5 h-5">
+          </button>
         </div>
+      </div>
+    </div>
 
-        <!-- Recent Activity Table -->
-        <div class="card">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                <h3 class="text-xl font-heading font-semibold text-primary">Actividad Reciente</h3>
-                <div class="flex flex-wrap items-center gap-3">
-                    <select id="driverFilter" class="input h-10 text-sm w-auto">
-                        <option value="">Todos los conductores</option>
-                        <option value="driver1">Miguel Fernández</option>
-                        <option value="driver2">Ana Martínez</option>
-                    </select>
-                    <select id="tripTypeFilter" class="input h-10 text-sm w-auto">
-                        <option value="">Todos los tipos</option>
-                        <option value="loaded">Cargados</option>
-                        <option value="empty">Vacíos</option>
-                    </select>
-                    <button class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_174ff6fc5-1765384100032.png" alt="Icono de filtro" class="w-4 h-4">
-                        Filtrar
-                    </button>
-                </div>
-            </div>
-
-            <!-- Desktop Table -->
-            <div class="hidden lg:block overflow-x-auto">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Conductor</th>
-                            <th>Camión</th>
-                            <th>Tipo</th>
-                            <th>Origen → Destino</th>
-                            <th class="text-right">Distancia</th>
-                            <th class="text-right">Ingresos</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="activityTableBody">
-                        <tr>
-                            <td class="font-data">15/01/2026</td>
-                            <td>Miguel Fernández</td>
-                            <td class="font-data">ABC-1234</td>
-                            <td>
-                                <span class="badge badge-success">Cargado</span>
-                            </td>
-                            <td class="text-sm">Madrid → Barcelona</td>
-                            <td class="text-right font-data">628 km</td>
-                            <td class="text-right font-data text-success-600">€753.60</td>
-                            <td>
-                                <span class="badge badge-primary">Completado</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-data">15/01/2026</td>
-                            <td>Ana Martínez</td>
-                            <td class="font-data">XYZ-5678</td>
-                            <td>
-                                <span class="badge badge-warning">Vacío</span>
-                            </td>
-                            <td class="text-sm">Valencia → Sevilla</td>
-                            <td class="text-right font-data">542 km</td>
-                            <td class="text-right font-data text-text-tertiary">€0.00</td>
-                            <td>
-                                <span class="badge badge-primary">Completado</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-data">14/01/2026</td>
-                            <td>Miguel Fernández</td>
-                            <td class="font-data">ABC-1234</td>
-                            <td>
-                                <span class="badge badge-success">Cargado</span>
-                            </td>
-                            <td class="text-sm">Bilbao → Madrid</td>
-                            <td class="text-right font-data">395 km</td>
-                            <td class="text-right font-data text-success-600">€474.00</td>
-                            <td>
-                                <span class="badge badge-primary">Completado</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-data">14/01/2026</td>
-                            <td>Ana Martínez</td>
-                            <td class="font-data">XYZ-5678</td>
-                            <td>
-                                <span class="badge badge-success">Cargado</span>
-                            </td>
-                            <td class="text-sm">Sevilla → Valencia</td>
-                            <td class="text-right font-data">542 km</td>
-                            <td class="text-right font-data text-success-600">€650.40</td>
-                            <td>
-                                <span class="badge badge-primary">Completado</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-data">13/01/2026</td>
-                            <td>Miguel Fernández</td>
-                            <td class="font-data">ABC-1234</td>
-                            <td>
-                                <span class="badge badge-warning">Vacío</span>
-                            </td>
-                            <td class="text-sm">Barcelona → Bilbao</td>
-                            <td class="text-right font-data">620 km</td>
-                            <td class="text-right font-data text-text-tertiary">€0.00</td>
-                            <td>
-                                <span class="badge badge-primary">Completado</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Mobile Cards -->
-            <div class="lg:hidden space-y-4" id="activityCardsContainer">
-                <!-- Trip Card 1 -->
-                <div class="border border-border-light rounded-lg p-4">
-                    <div class="flex items-start justify-between mb-3">
-                        <div>
-                            <p class="font-medium text-primary">Miguel Fernández</p>
-                            <p class="text-sm text-text-tertiary font-data">ABC-1234</p>
-                        </div>
-                        <span class="badge badge-success">Cargado</span>
-                    </div>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_12b3c411e-1767116048101.png" alt="Icono de fecha" class="w-4 h-4">
-                            <span class="text-text-secondary font-data">15/01/2026</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1f18cf4a9-1764649024474.png" alt="Icono de ruta" class="w-4 h-4">
-                            <span class="text-text-secondary">Madrid → Barcelona</span>
-                        </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-border-light">
-                            <span class="text-text-tertiary">Distancia:</span>
-                            <span class="font-medium font-data">628 km</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-text-tertiary">Ingresos:</span>
-                            <span class="font-medium text-success-600 font-data">€753.60</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Trip Card 2 -->
-                <div class="border border-border-light rounded-lg p-4">
-                    <div class="flex items-start justify-between mb-3">
-                        <div>
-                            <p class="font-medium text-primary">Ana Martínez</p>
-                            <p class="text-sm text-text-tertiary font-data">XYZ-5678</p>
-                        </div>
-                        <span class="badge badge-warning">Vacío</span>
-                    </div>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_12b3c411e-1767116048101.png" alt="Icono de fecha" class="w-4 h-4">
-                            <span class="text-text-secondary font-data">15/01/2026</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1f18cf4a9-1764649024474.png" alt="Icono de ruta" class="w-4 h-4">
-                            <span class="text-text-secondary">Valencia → Sevilla</span>
-                        </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-border-light">
-                            <span class="text-text-tertiary">Distancia:</span>
-                            <span class="font-medium font-data">542 km</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-text-tertiary">Ingresos:</span>
-                            <span class="font-medium text-text-tertiary font-data">€0.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pagination -->
-            <div class="flex items-center justify-between mt-6 pt-6 border-t border-border-light">
-                <p class="text-sm text-text-secondary">
-                    Mostrando <span class="font-medium">1-5</span> de <span class="font-medium">142</span> viajes
-                </p>
-                <div class="flex items-center gap-2">
-                    <button class="btn-outline px-3 h-9 text-sm" disabled>
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13205c3d8-1765252084774.png" alt="Anterior" class="w-5 h-5">
-                    </button>
-                    <button class="btn-primary px-3 h-9 text-sm">1</button>
-                    <button class="btn-outline px-3 h-9 text-sm">2</button>
-                    <button class="btn-outline px-3 h-9 text-sm">3</button>
-                    <button class="btn-outline px-3 h-9 text-sm">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1261849e9-1766836029510.png" alt="Siguiente" class="w-5 h-5">
-                    </button>
-                </div>
-            </div>
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <a href="settings_configuration.html" class="card hover:shadow-xl transition-all group">
+        <div class="flex items-center gap-4">
+          <div class="p-4 bg-primary-50 rounded-lg group-hover:bg-primary-100 transition-colors">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_14310c8fc-1764879997159.png" alt="Icono de gestión de flota" class="w-8 h-8">
+          </div>
+          <div>
+            <h4 class="font-heading font-semibold text-primary mb-1">Gestión de Flota</h4>
+            <p class="text-sm text-text-secondary">Administrar camiones</p>
+          </div>
         </div>
+      </a>
 
-        <!-- Quick Actions -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <a href="settings_configuration.html" class="card hover:shadow-xl transition-all group">
-                <div class="flex items-center gap-4">
-                    <div class="p-4 bg-primary-50 rounded-lg group-hover:bg-primary-100 transition-colors">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_14310c8fc-1764879997159.png" alt="Icono de gestión de flota" class="w-8 h-8">
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-semibold text-primary mb-1">Gestión de Flota</h4>
-                        <p class="text-sm text-text-secondary">Administrar camiones</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="settings_configuration.html" class="card hover:shadow-xl transition-all group">
-                <div class="flex items-center gap-4">
-                    <div class="p-4 bg-secondary-50 rounded-lg group-hover:bg-secondary-100 transition-colors">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10b54450f-1767300172292.png" alt="Icono de gestión de conductores" class="w-8 h-8">
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-semibold text-primary mb-1">Gestión de Conductores</h4>
-                        <p class="text-sm text-text-secondary">Administrar personal</p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="data_export_interface.html" class="card hover:shadow-xl transition-all group">
-                <div class="flex items-center gap-4">
-                    <div class="p-4 bg-accent-50 rounded-lg group-hover:bg-accent-100 transition-colors">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1bdb1acd7-1764748487531.png" alt="Icono de exportar datos" class="w-8 h-8">
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-semibold text-primary mb-1">Exportar Datos</h4>
-                        <p class="text-sm text-text-secondary">Descargar informes CSV</p>
-                    </div>
-                </div>
-            </a>
+      <a href="settings_configuration.html" class="card hover:shadow-xl transition-all group">
+        <div class="flex items-center gap-4">
+          <div class="p-4 bg-secondary-50 rounded-lg group-hover:bg-secondary-100 transition-colors">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10b54450f-1767300172292.png" alt="Icono de gestión de conductores" class="w-8 h-8">
+          </div>
+          <div>
+            <h4 class="font-heading font-semibold text-primary mb-1">Gestión de Conductores</h4>
+            <p class="text-sm text-text-secondary">Administrar personal</p>
+          </div>
         </div>
-    </main>
+      </a>
 
-    <!-- Footer -->
-    <footer class="bg-surface border-t border-border-light mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-sm text-text-tertiary font-caption">
-                    © 2026 Transporte360. Todos los derechos reservados.
-                </p>
-                <div class="flex items-center gap-4 text-sm text-text-tertiary">
-                    <a href="javascript:void(0)" class="hover:text-primary transition-colors">Ayuda</a>
-                    <span>•</span>
-                    <a href="javascript:void(0)" class="hover:text-primary transition-colors">Soporte</a>
-                    <span>•</span>
-                    <a href="javascript:void(0)" class="hover:text-primary transition-colors">Privacidad</a>
-                </div>
-            </div>
+      <a href="data_export_interface.html" class="card hover:shadow-xl transition-all group">
+        <div class="flex items-center gap-4">
+          <div class="p-4 bg-accent-50 rounded-lg group-hover:bg-accent-100 transition-colors">
+            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1bdb1acd7-1764748487531.png" alt="Icono de exportar datos" class="w-8 h-8">
+          </div>
+          <div>
+            <h4 class="font-heading font-semibold text-primary mb-1">Exportar Datos</h4>
+            <p class="text-sm text-text-secondary">Descargar informes CSV</p>
+          </div>
         </div>
-    </footer>
+      </a>
+    </div>
+  </main>
 
-    <script>
-        // Mock data for calculations
-        const mockData = {
-            totalKm: 45280,
-            emptyKm: 8241,
-            loadedKm: 37039,
-            totalRevenue: 54336,
-            variableCosts: 18560,
-            fuelCosts: 12340,
-            fixedCosts: 10589,
-            totalTrips: 142,
-            loadedTrips: 116,
-            emptyTrips: 26
-        };
+  <!-- Footer -->
+  <footer class="bg-surface border-t border-border-light mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-text-tertiary font-caption">
+          © 2026 Transporte360. Todos los derechos reservados.
+        </p>
+        <div class="flex items-center gap-4 text-sm text-text-tertiary">
+          <a href="javascript:void(0)" class="hover:text-primary transition-colors">Ayuda</a>
+          <span>•</span>
+          <a href="javascript:void(0)" class="hover:text-primary transition-colors">Soporte</a>
+          <span>•</span>
+          <a href="javascript:void(0)" class="hover:text-primary transition-colors">Privacidad</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-        // Calculate derived metrics
-        function calculateMetrics() {
-            const emptyPercentage = ((mockData.emptyKm / mockData.totalKm) * 100).toFixed(1);
-            const totalCosts = mockData.variableCosts + mockData.fuelCosts + mockData.fixedCosts;
-            const netProfit = mockData.totalRevenue - totalCosts;
-            const profitMargin = ((netProfit / mockData.totalRevenue) * 100).toFixed(1);
+  <script>
+    const mockData = {
+      totalKm: 45280,
+      emptyKm: 8241,
+      loadedKm: 37039,
+      totalRevenue: 54336,
+      variableCosts: 18560,
+      fuelCosts: 12340,
+      fixedCosts: 10589,
+      totalTrips: 142,
+      loadedTrips: 116,
+      emptyTrips: 26
+    };
 
-            return {
-                emptyPercentage,
-                totalCosts,
-                netProfit,
-                profitMargin
-            };
+    function calculateMetrics() {
+      const emptyPercentage = ((mockData.emptyKm / mockData.totalKm) * 100).toFixed(1);
+      const totalCosts = mockData.variableCosts + mockData.fuelCosts + mockData.fixedCosts;
+      const netProfit = mockData.totalRevenue - totalCosts;
+      const profitMargin = ((netProfit / mockData.totalRevenue) * 100).toFixed(1);
+
+      return { emptyPercentage, totalCosts, netProfit, profitMargin };
+    }
+
+    function updateKPIs() {
+      const metrics = calculateMetrics();
+
+      document.getElementById('totalKm').textContent = mockData.totalKm.toLocaleString('es-ES');
+      document.getElementById('emptyKm').textContent = mockData.emptyKm.toLocaleString('es-ES');
+      document.getElementById('totalRevenue').textContent = '€' + mockData.totalRevenue.toLocaleString('es-ES');
+      document.getElementById('netProfit').textContent = '€' + metrics.netProfit.toLocaleString('es-ES');
+      document.getElementById('variableCosts').textContent = '€' + mockData.variableCosts.toLocaleString('es-ES');
+      document.getElementById('actualFuelCosts').textContent = '€' + mockData.fuelCosts.toLocaleString('es-ES');
+      document.getElementById('fixedCosts').textContent = '€' + mockData.fixedCosts.toLocaleString('es-ES');
+    }
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    const refreshButton = document.getElementById('refreshButton');
+    if (refreshButton) {
+      refreshButton.addEventListener('click', () => {
+        const icon = refreshButton.querySelector('img');
+        if (icon) icon.classList.add('animate-spin');
+
+        setTimeout(() => {
+          if (icon) icon.classList.remove('animate-spin');
+          updateKPIs();
+        }, 1000);
+      });
+    }
+
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+      logoutButton.addEventListener('click', () => {
+        if (confirm('¿Está seguro de que desea cerrar sesión?')) {
+          sessionStorage.removeItem('user');
+          window.location.href = 'login_authentication.html';
         }
+      });
+    }
 
-        // Update KPI displays
-        function updateKPIs() {
-            const metrics = calculateMetrics();
-            
-            document.getElementById('totalKm').textContent = mockData.totalKm.toLocaleString('es-ES');
-            document.getElementById('emptyKm').textContent = mockData.emptyKm.toLocaleString('es-ES');
-            document.getElementById('totalRevenue').textContent = '€' + mockData.totalRevenue.toLocaleString('es-ES');
-            document.getElementById('netProfit').textContent = '€' + metrics.netProfit.toLocaleString('es-ES');
-            document.getElementById('variableCosts').textContent = '€' + mockData.variableCosts.toLocaleString('es-ES');
-            document.getElementById('actualFuelCosts').textContent = '€' + mockData.fuelCosts.toLocaleString('es-ES');
-            document.getElementById('fixedCosts').textContent = '€' + mockData.fixedCosts.toLocaleString('es-ES');
-        }
+    window.addEventListener('DOMContentLoaded', () => {
+      const user = sessionStorage.getItem('user');
 
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
+      // Si no hay usuario guardado, redirige al login
+      if (!user) {
+        window.location.href = 'login_authentication.html';
+        return;
+      }
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+      let userData;
+      try {
+        userData = JSON.parse(user);
+      } catch (e) {
+        sessionStorage.removeItem('user');
+        window.location.href = 'login_authentication.html';
+        return;
+      }
+
+      if (userData.role !== 'manager') {
+        window.location.href = 'trip_management.html';
+        return;
+      }
+
+      document.getElementById('userName').textContent = userData.name || 'Usuario';
+      updateKPIs();
+    });
+
+    const driverFilter = document.getElementById('driverFilter');
+    const tripTypeFilter = document.getElementById('tripTypeFilter');
+
+    [driverFilter, tripTypeFilter].forEach((filter) => {
+      if (!filter) return;
+      filter.addEventListener('change', () => {
+        console.log('Filtering trips:', {
+          driver: driverFilter ? driverFilter.value : '',
+          tripType: tripTypeFilter ? tripTypeFilter.value : ''
         });
+      });
+    });
 
-        // Refresh button
-        const refreshButton = document.getElementById('refreshButton');
-        refreshButton.addEventListener('click', () => {
-            const icon = refreshButton.querySelector('img');
-            icon.classList.add('animate-spin');
-            
-            setTimeout(() => {
-                icon.classList.remove('animate-spin');
-                updateKPIs();
-            }, 1000);
-        });
-
-        // Logout functionality
-        const logoutButton = document.getElementById('logoutButton');
-        logoutButton.addEventListener('click', () => {
-            if (confirm('¿Está seguro de que desea cerrar sesión?')) {
-                sessionStorage.removeItem('user');
-                window.location.href = 'login_authentication.html';
-            }
-        });
-
-        // Check authentication
-        window.addEventListener('DOMContentLoaded', () => {
-            const user = sessionStorage.getItem('user');
-            if (!user) {
-                window.location.href = 'login_authentication.html';
-                return;
-            }
-
-            const userData = JSON.parse(user);
-            if (userData.role !== 'manager') {
-                window.location.href = 'trip_management.html';
-                return;
-            }
-
-            document.getElementById('userName').textContent = userData.name;
-            updateKPIs();
-        });
-
-        // Filter functionality
-        const driverFilter = document.getElementById('driverFilter');
-        const tripTypeFilter = document.getElementById('tripTypeFilter');
-
-        [driverFilter, tripTypeFilter].forEach(filter => {
-            filter.addEventListener('change', () => {
-                console.log('Filtering trips:', {
-                    driver: driverFilter.value,
-                    tripType: tripTypeFilter.value
-                });
-                // In a real application, this would filter the table data
-            });
-        });
-
-        // Month filter
-        const monthFilter = document.getElementById('monthFilter');
-        monthFilter.addEventListener('change', () => {
-            console.log('Loading data for:', monthFilter.value);
-            // In a real application, this would load data for the selected month
-        });
-    </script>
-<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+    const monthFilter = document.getElementById('monthFilter');
+    if (monthFilter) {
+      monthFilter.addEventListener('change', () => {
+        console.log('Loading data for:', monthFilter.value);
+      });
+    }
+  </script>
 </body>
 </html>
+
+
