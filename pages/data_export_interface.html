@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exportar Datos - Transporte360</title>
+    <link rel="stylesheet" href="../css/main.css">
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransporte1153back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background min-h-screen">
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 z-0 opacity-5 pointer-events-none">
+        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1" class="text-primary"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)"/>
+        </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-10 bg-surface border-b border-border-light sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo and Title -->
+                <div class="flex items-center gap-4">
+                    <a href="manager_dashboard.html" class="flex items-center gap-3 focus-ring rounded-lg p-1">
+                        <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="64" height="64" rx="12" fill="#1E3A5F"/>
+                            <path d="M16 32L32 20L48 32M20 36V44C20 45.1046 20.8954 46 22 46H42C43.1046 46 44 45.1046 44 44V36" stroke="#E67E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="32" cy="32" r="4" fill="#E67E22"/>
+                        </svg>
+                        <div class="hidden sm:block">
+                            <h1 class="text-lg font-heading font-bold text-primary">Transporte360</h1>
+                            <p class="text-xs text-text-tertiary font-caption">Exportar Datos</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- User Menu -->
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex items-center gap-3 px-4 py-2 bg-primary-50 rounded-lg">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a22c4d82-1766504541083.png" alt="Icono de usuario" class="w-6 h-6">
+                        <div>
+                            <p class="text-sm font-medium text-primary" id="userName">Carlos Rodríguez</p>
+                            <p class="text-xs text-text-tertiary font-caption">Gerente</p>
+                        </div>
+                    </div>
+                    <button onclick="handleLogout()" class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a920af4a-1766478424944.png" alt="Icono de cerrar sesión" class="w-5 h-5">
+                        <span class="hidden sm:inline">Cerrar Sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-3 mb-2">
+                <a href="manager_dashboard.html" class="focus-ring rounded p-1 hover:bg-primary-50 transition-colors">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1c06f0943-1764700745773.png" alt="Volver" class="w-6 h-6">
+                </a>
+                <h2 class="text-3xl font-heading font-bold text-primary">Exportar Datos</h2>
+            </div>
+            <p class="text-text-secondary ml-11">Genere informes CSV personalizados para análisis externo</p>
+        </div>
+
+        <!-- Export Configuration Card -->
+        <div class="card mb-6">
+            <div class="flex items-center gap-3 mb-6">
+                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_174ff6fc5-1765384100032.png" alt="Icono de filtros" class="w-6 h-6">
+                <h3 class="text-xl font-heading font-semibold text-primary">Parámetros de Exportación</h3>
+            </div>
+
+            <form id="exportForm" class="space-y-6">
+                <!-- Date Range Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="startDate" class="input-label">
+                            <span class="flex items-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1b841c43c-1764671721661.png" alt="Icono de fecha inicio" class="w-4 h-4">
+                                Fecha Inicio
+                            </span>
+                        </label>
+                        <input 
+                            type="date" 
+                            id="startDate" 
+                            name="startDate"
+                            class="input"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label for="endDate" class="input-label">
+                            <span class="flex items-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1641e99f1-1766833686763.png" alt="Icono de fecha fin" class="w-4 h-4">
+                                Fecha Fin
+                            </span>
+                        </label>
+                        <input 
+                            type="date" 
+                            id="endDate" 
+                            name="endDate"
+                            class="input"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Quick Date Filters -->
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" onclick="setDateRange('today')" class="btn-outline px-4 h-10 text-sm">Hoy</button>
+                    <button type="button" onclick="setDateRange('week')" class="btn-outline px-4 h-10 text-sm">Esta Semana</button>
+                    <button type="button" onclick="setDateRange('month')" class="btn-outline px-4 h-10 text-sm">Este Mes</button>
+                    <button type="button" onclick="setDateRange('quarter')" class="btn-outline px-4 h-10 text-sm">Este Trimestre</button>
+                    <button type="button" onclick="setDateRange('year')" class="btn-outline px-4 h-10 text-sm">Este Año</button>
+                </div>
+
+                <!-- Driver Filter -->
+                <div>
+                    <label for="driverFilter" class="input-label">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1202be962-1766987862313.png" alt="Icono de conductores" class="w-4 h-4">
+                            Filtrar por Conductor
+                        </span>
+                    </label>
+                    <select id="driverFilter" name="driverFilter" class="input">
+                        <option value="all">Todos los Conductores</option>
+                        <option value="driver1">Miguel Fernández</option>
+                        <option value="driver2">Ana Martínez</option>
+                    </select>
+                </div>
+
+                <!-- Trip Type Filter -->
+                <div>
+                    <label class="input-label">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_112c9e80c-1766817003412.png" alt="Icono de tipo de viaje" class="w-4 h-4">
+                            Tipo de Viaje
+                        </span>
+                    </label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="tripType" value="loaded" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                            <span class="text-sm text-text-secondary">Cargado</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="tripType" value="empty" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                            <span class="text-sm text-text-secondary">Vacío</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Vehicle Filter -->
+                <div>
+                    <label for="vehicleFilter" class="input-label">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1db860dd0-1767300172305.png" alt="Icono de vehículo" class="w-4 h-4">
+                            Filtrar por Vehículo
+                        </span>
+                    </label>
+                    <select id="vehicleFilter" name="vehicleFilter" class="input">
+                        <option value="all">Todos los Vehículos</option>
+                        <option value="ABC-1234">ABC-1234 - Scania R450</option>
+                        <option value="DEF-5678">DEF-5678 - Volvo FH16</option>
+                        <option value="GHI-9012">GHI-9012 - Mercedes Actros</option>
+                    </select>
+                </div>
+
+                <!-- Column Selection -->
+                <div>
+                    <label class="input-label mb-3">
+                        <span class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_112016080-1767300171397.png" alt="Icono de columnas" class="w-4 h-4">
+                            Columnas a Exportar
+                        </span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-primary-50 rounded-lg">
+                        <!-- Trip Details -->
+                        <div class="space-y-2">
+                            <p class="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Detalles del Viaje</p>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="date" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Fecha</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="driver" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Conductor</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="vehicle" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Vehículo</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="tripType" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Tipo de Viaje</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="origin" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Origen</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="destination" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Destino</span>
+                            </label>
+                        </div>
+
+                        <!-- Distance & Financial -->
+                        <div class="space-y-2">
+                            <p class="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Distancia y Finanzas</p>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="kmStart" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Km Inicio</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="kmEnd" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Km Fin</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="distance" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Distancia Total</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="revenue" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Ingresos</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="variableCosts" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Costes Variables</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="fixedCosts" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Costes Fijos</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="profit" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Beneficio</span>
+                            </label>
+                        </div>
+
+                        <!-- Fuel & Hours -->
+                        <div class="space-y-2">
+                            <p class="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Combustible y Horas</p>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="fuelLiters" class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Litros Combustible</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="fuelCost" class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Coste Combustible</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="fuelConsumption" class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Consumo (L/100km)</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="tachographHours" class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Horas Tacógrafo</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="columns" value="cmrFile" class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                                <span class="text-sm text-text-secondary">Archivo CMR</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Format Options -->
+                <div class="border-t border-border-light pt-6">
+                    <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1293e4bfe-1767102860924.png" alt="Icono de configuración" class="w-5 h-5">
+                        Opciones de Formato
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="delimiter" class="input-label">Delimitador</label>
+                            <select id="delimiter" name="delimiter" class="input">
+                                <option value="comma">Coma (,)</option>
+                                <option value="semicolon" selected>Punto y coma (;)</option>
+                                <option value="tab">Tabulación</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="encoding" class="input-label">Codificación</label>
+                            <select id="encoding" name="encoding" class="input">
+                                <option value="utf8" selected>UTF-8</option>
+                                <option value="latin1">Latin-1</option>
+                                <option value="windows1252">Windows-1252</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="decimalSeparator" class="input-label">Separador Decimal</label>
+                            <select id="decimalSeparator" name="decimalSeparator" class="input">
+                                <option value="comma" selected>Coma (,)</option>
+                                <option value="period">Punto (.)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="includeHeaders" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                            <span class="text-sm text-text-secondary">Incluir fila de encabezados</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="includeCalculations" checked class="w-4 h-4 text-primary border-border rounded focus:ring-3 focus:ring-primary-500">
+                            <span class="text-sm text-text-secondary">Incluir cálculos automáticos</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Export Actions -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border-light">
+                    <button type="button" onclick="previewExport()" class="btn-outline flex items-center justify-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1b01263b9-1767067273487.png" alt="Icono de vista previa" class="w-5 h-5">
+                        Vista Previa
+                    </button>
+                    <button type="submit" class="btn-primary flex-1 flex items-center justify-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_146cfa0c8-1764649038136.png" alt="Icono de descarga" class="w-5 h-5">
+                        <span id="exportButtonText">Generar y Descargar CSV</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Export Progress (Hidden by default) -->
+        <div id="exportProgress" class="card mb-6 hidden">
+            <div class="flex items-center gap-4 mb-4">
+                <svg class="animate-spin w-6 h-6 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-primary">Generando archivo CSV...</p>
+                    <p class="text-xs text-text-tertiary" id="progressText">Procesando datos</p>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div id="progressBarFill" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Export History -->
+        <div class="card">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16fc82ca6-1767300173076.png" alt="Icono de historial" class="w-6 h-6">
+                    <h3 class="text-xl font-heading font-semibold text-primary">Historial de Exportaciones</h3>
+                </div>
+                <button onclick="clearHistory()" class="text-sm text-error hover:text-error-700 focus-ring rounded px-3 py-1">
+                    Limpiar Historial
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <th>Rango de Fechas</th>
+                            <th>Filtros Aplicados</th>
+                            <th>Registros</th>
+                            <th>Tamaño</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr>
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16ac63682-1764638682166.png" alt="Icono de hora" class="w-4 h-4">
+                                    <span class="text-sm font-data">01/01/2026 14:30</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-sm">01/12/2025 - 31/12/2025</span>
+                            </td>
+                            <td>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="badge badge-primary text-xs">Todos los conductores</span>
+                                    <span class="badge badge-primary text-xs">Cargado + Vacío</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-sm font-data">156</span>
+                            </td>
+                            <td>
+                                <span class="text-sm font-data">24 KB</span>
+                            </td>
+                            <td>
+                                <button onclick="redownloadExport('export_202512.csv')" class="focus-ring rounded p-1 hover:bg-primary-50 transition-colors" title="Descargar nuevamente">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_146cfa0c8-1764649038136.png" alt="Icono de descarga" class="w-5 h-5">
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16ac63682-1764638682166.png" alt="Icono de hora" class="w-4 h-4">
+                                    <span class="text-sm font-data">28/12/2025 09:15</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-sm">01/11/2025 - 30/11/2025</span>
+                            </td>
+                            <td>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="badge badge-primary text-xs">Miguel Fernández</span>
+                                    <span class="badge badge-primary text-xs">Solo Cargado</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-sm font-data">89</span>
+                            </td>
+                            <td>
+                                <span class="text-sm font-data">15 KB</span>
+                            </td>
+                            <td>
+                                <button onclick="redownloadExport('export_202511_miguel.csv')" class="focus-ring rounded p-1 hover:bg-primary-50 transition-colors" title="Descargar nuevamente">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_146cfa0c8-1764649038136.png" alt="Icono de descarga" class="w-5 h-5">
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16ac63682-1764638682166.png" alt="Icono de hora" class="w-4 h-4">
+                                    <span class="text-sm font-data">15/12/2025 16:45</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-sm">01/10/2025 - 31/12/2025</span>
+                            </td>
+                            <td>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="badge badge-primary text-xs">Todos los conductores</span>
+                                    <span class="badge badge-primary text-xs">ABC-1234</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-sm font-data">234</span>
+                            </td>
+                            <td>
+                                <span class="text-sm font-data">38 KB</span>
+                            </td>
+                            <td>
+                                <button onclick="redownloadExport('export_Q4_2025.csv')" class="focus-ring rounded p-1 hover:bg-primary-50 transition-colors" title="Descargar nuevamente">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_146cfa0c8-1764649038136.png" alt="Icono de descarga" class="w-5 h-5">
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="modal-overlay hidden">
+        <div class="modal p-0 max-w-4xl">
+            <div class="sticky top-0 bg-surface border-b border-border-light p-6 flex items-center justify-between z-10">
+                <h3 class="text-xl font-heading font-semibold text-primary">Vista Previa de Exportación</h3>
+                <button onclick="closePreview()" class="focus-ring rounded p-1 hover:bg-primary-50 transition-colors">
+                    <img src="https://images.unsplash.com/photo-1584311830189-3026b1c2cacb" alt="Cerrar" class="w-6 h-6">
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="mb-4 p-4 bg-primary-50 rounded-lg">
+                    <p class="text-sm text-text-secondary mb-2">
+                        <strong class="text-primary">Registros a exportar:</strong> <span id="previewRecordCount" class="font-data">0</span>
+                    </p>
+                    <p class="text-sm text-text-secondary">
+                        <strong class="text-primary">Tamaño estimado:</strong> <span id="previewFileSize" class="font-data">0 KB</span>
+                    </p>
+                </div>
+                <div class="overflow-x-auto border border-border-light rounded-lg">
+                    <table class="table" id="previewTable">
+                        <thead>
+                            <tr id="previewTableHeader">
+                                <!-- Dynamic headers -->
+                            </tr>
+                        </thead>
+                        <tbody id="previewTableBody">
+                            <!-- Dynamic preview data -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-text-tertiary mt-4 text-center">Mostrando primeros 5 registros como ejemplo</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock trip data for export
+        const mockTripData = [
+            {
+                date: '15/12/2025',
+                driver: 'Miguel Fernández',
+                vehicle: 'ABC-1234',
+                tripType: 'Cargado',
+                origin: 'Madrid',
+                destination: 'Barcelona',
+                kmStart: 125000,
+                kmEnd: 125620,
+                distance: 620,
+                revenue: 930.00,
+                variableCosts: 186.00,
+                fixedCosts: 124.00,
+                profit: 620.00,
+                fuelLiters: 155.0,
+                fuelCost: 232.50,
+                fuelConsumption: 25.0,
+                tachographHours: 8.5,
+                cmrFile: 'CMR_20251215_001.pdf'
+            },
+            {
+                date: '16/12/2025',
+                driver: 'Miguel Fernández',
+                vehicle: 'ABC-1234',
+                tripType: 'Vacío',
+                origin: 'Barcelona',
+                destination: 'Valencia',
+                kmStart: 125620,
+                kmEnd: 125970,
+                distance: 350,
+                revenue: 0,
+                variableCosts: 105.00,
+                fixedCosts: 70.00,
+                profit: -175.00,
+                fuelLiters: 87.5,
+                fuelCost: 131.25,
+                fuelConsumption: 25.0,
+                tachographHours: 5.0,
+                cmrFile: ''
+            },
+            {
+                date: '17/12/2025',
+                driver: 'Ana Martínez',
+                vehicle: 'DEF-5678',
+                tripType: 'Cargado',
+                origin: 'Valencia',
+                destination: 'Sevilla',
+                kmStart: 89500,
+                kmEnd: 90120,
+                distance: 620,
+                revenue: 930.00,
+                variableCosts: 186.00,
+                fixedCosts: 124.00,
+                profit: 620.00,
+                fuelLiters: 155.0,
+                fuelCost: 232.50,
+                fuelConsumption: 25.0,
+                tachographHours: 8.5,
+                cmrFile: 'CMR_20251217_002.pdf'
+            }
+        ];
+
+        // Initialize page
+        window.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            setDefaultDates();
+        });
+
+        // Check authentication
+        function checkAuth() {
+            const user = sessionStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'login_authentication.html';
+                return;
+            }
+
+            const userData = JSON.parse(user);
+            if (userData.role !== 'manager') {
+                window.location.href = 'trip_management.html';
+                return;
+            }
+
+            document.getElementById('userName').textContent = userData.name;
+        }
+
+        // Set default dates (current month)
+        function setDefaultDates() {
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+            document.getElementById('startDate').valueAsDate = firstDay;
+            document.getElementById('endDate').valueAsDate = lastDay;
+        }
+
+        // Set date range presets
+        function setDateRange(range) {
+            const today = new Date();
+            let startDate, endDate;
+
+            switch(range) {
+                case 'today':
+                    startDate = endDate = today;
+                    break;
+                case 'week':
+                    startDate = new Date(today);
+                    startDate.setDate(today.getDate() - today.getDay());
+                    endDate = new Date(startDate);
+                    endDate.setDate(startDate.getDate() + 6);
+                    break;
+                case 'month':
+                    startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                    endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                    break;
+                case 'quarter':
+                    const quarter = Math.floor(today.getMonth() / 3);
+                    startDate = new Date(today.getFullYear(), quarter * 3, 1);
+                    endDate = new Date(today.getFullYear(), (quarter + 1) * 3, 0);
+                    break;
+                case 'year':
+                    startDate = new Date(today.getFullYear(), 0, 1);
+                    endDate = new Date(today.getFullYear(), 11, 31);
+                    break;
+            }
+
+            document.getElementById('startDate').valueAsDate = startDate;
+            document.getElementById('endDate').valueAsDate = endDate;
+        }
+
+        // Preview export
+        function previewExport() {
+            const selectedColumns = getSelectedColumns();
+            if (selectedColumns.length === 0) {
+                alert('Por favor, seleccione al menos una columna para exportar');
+                return;
+            }
+
+            // Generate preview table
+            const headerRow = document.getElementById('previewTableHeader');
+            const bodyRows = document.getElementById('previewTableBody');
+          
+            // Clear existing content
+            headerRow.innerHTML = '';
+            bodyRows.innerHTML = '';
+
+            // Add headers
+            selectedColumns.forEach(col => {
+                const th = document.createElement('th');
+                th.textContent = getColumnLabel(col);
+                headerRow.appendChild(th);
+            });
+
+            // Add sample data (first 5 records)
+            const filteredData = filterTripData();
+            const sampleData = filteredData.slice(0, 5);
+
+            sampleData.forEach(trip => {
+                const tr = document.createElement('tr');
+                selectedColumns.forEach(col => {
+                    const td = document.createElement('td');
+                    td.textContent = formatCellValue(trip[col], col);
+                    tr.appendChild(td);
+                });
+                bodyRows.appendChild(tr);
+            });
+
+            // Update preview stats
+            document.getElementById('previewRecordCount').textContent = filteredData.length;
+            document.getElementById('previewFileSize').textContent = Math.ceil(filteredData.length * 0.5) + ' KB';
+
+            // Show modal
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        // Close preview modal
+        function closePreview() {
+            document.getElementById('previewModal').classList.add('hidden');
+        }
+
+        // Get selected columns
+        function getSelectedColumns() {
+            const checkboxes = document.querySelectorAll('input[name="columns"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        // Get column label
+        function getColumnLabel(column) {
+            const labels = {
+                date: 'Fecha',
+                driver: 'Conductor',
+                vehicle: 'Vehículo',
+                tripType: 'Tipo',
+                origin: 'Origen',
+                destination: 'Destino',
+                kmStart: 'Km Inicio',
+                kmEnd: 'Km Fin',
+                distance: 'Distancia',
+                revenue: 'Ingresos',
+                variableCosts: 'Costes Variables',
+                fixedCosts: 'Costes Fijos',
+                profit: 'Beneficio',
+                fuelLiters: 'Litros',
+                fuelCost: 'Coste Combustible',
+                fuelConsumption: 'Consumo',
+                tachographHours: 'Horas',
+                cmrFile: 'CMR'
+            };
+            return labels[column] || column;
+        }
+
+        // Format cell value
+        function formatCellValue(value, column) {
+            if (value === null || value === undefined || value === '') return '-';
+
+            const financialColumns = ['revenue', 'variableCosts', 'fixedCosts', 'profit', 'fuelCost'];
+            const numericColumns = ['distance', 'kmStart', 'kmEnd', 'fuelLiters', 'fuelConsumption', 'tachographHours'];
+
+            if (financialColumns.includes(column)) {
+                return value.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+            }
+
+            if (numericColumns.includes(column)) {
+                return value.toLocaleString('es-ES', { minimumFractionDigits: column === 'fuelConsumption' || column === 'tachographHours' ? 1 : 0 });
+            }
+
+            return value;
+        }
+
+        // Filter trip data based on form inputs
+        function filterTripData() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const driverFilter = document.getElementById('driverFilter').value;
+            const vehicleFilter = document.getElementById('vehicleFilter').value;
+            const tripTypeCheckboxes = document.querySelectorAll('input[name="tripType"]:checked');
+            const selectedTripTypes = Array.from(tripTypeCheckboxes).map(cb => cb.value);
+
+            return mockTripData.filter(trip => {
+                // Date filter (simplified for demo)
+                const tripDate = trip.date;
+
+                // Driver filter
+                if (driverFilter !== 'all') {
+                    const driverNames = {
+                        'driver1': 'Miguel Fernández',
+                        'driver2': 'Ana Martínez'
+                    };
+                    if (trip.driver !== driverNames[driverFilter]) return false;
+                }
+
+                // Vehicle filter
+                if (vehicleFilter !== 'all' && trip.vehicle !== vehicleFilter) return false;
+
+                // Trip type filter
+                const tripTypeMap = {
+                    'loaded': 'Cargado',
+                    'empty': 'Vacío'
+                };
+                const tripTypeMatch = selectedTripTypes.some(type => tripTypeMap[type] === trip.tripType);
+                if (!tripTypeMatch) return false;
+
+                return true;
+            });
+        }
+
+        // Generate CSV content
+        function generateCSV() {
+            const selectedColumns = getSelectedColumns();
+            const filteredData = filterTripData();
+            const delimiter = document.getElementById('delimiter').value === 'comma' ? ',' : 
+                            document.getElementById('delimiter').value === 'semicolon' ? ';' : '\t';
+            const decimalSep = document.getElementById('decimalSeparator').value === 'comma' ? ',' : '.';
+            const includeHeaders = document.querySelector('input[name="includeHeaders"]').checked;
+
+            let csv = '';
+
+            // Add headers
+            if (includeHeaders) {
+                csv += selectedColumns.map(col => getColumnLabel(col)).join(delimiter) + '\n';
+            }
+
+            // Add data rows
+            filteredData.forEach(trip => {
+                const row = selectedColumns.map(col => {
+                    let value = trip[col];
+                    
+                    // Format numbers with correct decimal separator
+                    if (typeof value === 'number') {
+                        value = value.toString().replace('.', decimalSep);
+                    }
+                    
+                    // Escape values containing delimiter
+                    if (typeof value === 'string' && value.includes(delimiter)) {
+                        value = '"' + value + '"';
+                    }
+                    
+                    return value || '';
+                });
+                csv += row.join(delimiter) + '\n';
+            });
+
+            return csv;
+        }
+
+        // Download CSV file
+        function downloadCSV(content, filename) {
+            const encoding = document.getElementById('encoding').value;
+            const blob = new Blob([content], { type: 'text/csv;charset=' + encoding });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Handle form submission
+        document.getElementById('exportForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const selectedColumns = getSelectedColumns();
+            if (selectedColumns.length === 0) {
+                alert('Por favor, seleccione al menos una columna para exportar');
+                return;
+            }
+
+            // Show progress
+            const progressDiv = document.getElementById('exportProgress');
+            const progressBar = document.getElementById('progressBarFill');
+            const progressText = document.getElementById('progressText');
+            progressDiv.classList.remove('hidden');
+
+            // Simulate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+                
+                if (progress === 30) progressText.textContent = 'Filtrando datos...';
+                if (progress === 60) progressText.textContent = 'Generando CSV...';
+                if (progress === 90) progressText.textContent = 'Preparando descarga...';
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    // Generate and download CSV
+                    const csvContent = generateCSV();
+                    const startDate = document.getElementById('startDate').value.replace(/-/g, '');
+                    const endDate = document.getElementById('endDate').value.replace(/-/g, '');
+                    const filename = `transporte360_export_${startDate}_${endDate}.csv`;
+                    
+                    downloadCSV(csvContent, filename);
+                    
+                    // Hide progress
+                    setTimeout(() => {
+                        progressDiv.classList.add('hidden');
+                        progressBar.style.width = '0%';
+                        progressText.textContent = 'Procesando datos';
+                        
+                        // Show success message
+                        alert('Exportación completada con éxito');
+                    }, 500);
+                }
+            }, 200);
+        });
+
+        // Redownload previous export
+        function redownloadExport(filename) {
+            alert('Descargando: ' + filename);
+            // In real implementation, this would fetch the stored file
+        }
+
+        // Clear export history
+        function clearHistory() {
+            if (confirm('¿Está seguro de que desea eliminar todo el historial de exportaciones?')) {
+                alert('Historial eliminado');
+                // In real implementation, this would clear stored history
+            }
+        }
+
+        // Handle logout
+        function handleLogout() {
+            if (confirm('¿Está seguro de que desea cerrar sesión?')) {
+                sessionStorage.removeItem('user');
+                window.location.href = 'login_authentication.html';
+            }
+        }
+
+        // Close modal on overlay click
+        document.getElementById('previewModal').addEventListener('click', (e) => {
+            if (e.target.id === 'previewModal') {
+                closePreview();
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
