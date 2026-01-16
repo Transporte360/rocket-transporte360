@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración del Sistema - Transporte360</title>
+    <link rel="stylesheet" href="../css/main.css">
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransporte1153back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-surface border-b border-border-light sticky top-0 z-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo and Title -->
+                <div class="flex items-center gap-4">
+                    <a href="manager_dashboard.html" class="flex items-center gap-3 focus-ring rounded-lg p-1">
+                        <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="64" height="64" rx="12" fill="#1E3A5F"/>
+                            <path d="M16 32L32 20L48 32M20 36V44C20 45.1046 20.8954 46 22 46H42C43.1046 46 44 45.1046 44 44V36" stroke="#E67E22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="32" cy="32" r="4" fill="#E67E22"/>
+                        </svg>
+                        <div class="hidden sm:block">
+                            <h1 class="text-lg font-heading font-bold text-primary">Transporte360</h1>
+                            <p class="text-xs text-text-tertiary font-caption">Panel de Gestión</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- User Menu -->
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex items-center gap-3 px-4 py-2 bg-primary-50 rounded-lg">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a22c4d82-1766504541083.png" alt="Icono de usuario" class="w-8 h-8">
+                        <div>
+                            <p class="text-sm font-medium text-primary" id="userName">Carlos Rodríguez</p>
+                            <p class="text-xs text-text-tertiary font-caption">Administrador</p>
+                        </div>
+                    </div>
+                    <button onclick="handleLogout()" class="btn-outline px-4 h-10 text-sm flex items-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a920af4a-1766478424944.png" alt="Icono de cerrar sesión" class="w-5 h-5">
+                        <span class="hidden sm:inline">Cerrar Sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-3 mb-2">
+                <a href="manager_dashboard.html" class="focus-ring rounded p-1 hover:bg-primary-50 transition-colors">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1e6a2ab3c-1765730263880.png" alt="Volver al panel" class="w-6 h-6">
+                </a>
+                <h2 class="text-3xl font-heading font-bold text-primary">Configuración del Sistema</h2>
+            </div>
+            <p class="text-text-secondary ml-10">Gestione los parámetros operativos y financieros del sistema</p>
+        </div>
+
+        <!-- Success/Error Messages -->
+        <div id="messageContainer" class="hidden mb-6">
+            <div id="messageContent" class="p-4 rounded-lg flex items-start gap-3">
+                <img id="messageIcon" src="" alt="Icono de mensaje" class="w-5 h-5 mt-0.5 flex-shrink-0">
+                <div class="flex-1">
+                    <p id="messageText" class="text-sm font-medium"></p>
+                </div>
+                <button onclick="hideMessage()" class="focus-ring rounded p-1 hover:opacity-70 transition-opacity">
+                    <img src="https://images.unsplash.com/photo-1601577751365-4338661241be" alt="Cerrar mensaje" class="w-5 h-5">
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Tabs -->
+        <div class="card mb-6">
+            <div class="border-b border-border-light mb-6">
+                <nav class="flex gap-2 overflow-x-auto" role="tablist">
+                    <button onclick="switchTab('rates')" id="tab-rates" class="tab-button active px-6 py-3 font-medium text-sm whitespace-nowrap focus-ring rounded-t-lg transition-colors" role="tab" aria-selected="true">
+                        <div class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1d0bf2587-1767300173929.png" alt="Icono de tarifas" class="w-5 h-5">
+                            <span>Gestión de Tarifas</span>
+                        </div>
+                    </button>
+                    <button onclick="switchTab('targets')" id="tab-targets" class="tab-button px-6 py-3 font-medium text-sm whitespace-nowrap focus-ring rounded-t-lg transition-colors" role="tab" aria-selected="false">
+                        <div class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1921aa1fb-1766745238664.png" alt="Icono de objetivos" class="w-5 h-5">
+                            <span>Objetivos de Rendimiento</span>
+                        </div>
+                    </button>
+                    <button onclick="switchTab('costs')" id="tab-costs" class="tab-button px-6 py-3 font-medium text-sm whitespace-nowrap focus-ring rounded-t-lg transition-colors" role="tab" aria-selected="false">
+                        <div class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a6199998-1767300174519.png" alt="Icono de costos" class="w-5 h-5">
+                            <span>Estructura de Costos</span>
+                        </div>
+                    </button>
+                    <button onclick="switchTab('fuel')" id="tab-fuel" class="tab-button px-6 py-3 font-medium text-sm whitespace-nowrap focus-ring rounded-t-lg transition-colors" role="tab" aria-selected="false">
+                        <div class="flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a92fb525-1766744893615.png" alt="Icono de combustible" class="w-5 h-5">
+                            <span>Parámetros de Combustible</span>
+                        </div>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Rates Management Tab -->
+            <div id="content-rates" class="tab-content">
+                <div class="mb-6">
+                    <h3 class="text-xl font-heading font-semibold text-primary mb-2">Tarifas por Kilómetro</h3>
+                    <p class="text-text-secondary text-sm">Configure las tarifas de pago por distancia para cada conductor</p>
+                </div>
+
+                <!-- Driver Rates Table -->
+                <div class="overflow-x-auto mb-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Conductor</th>
+                                <th>Tarifa Actual (€/km)</th>
+                                <th>Fecha Efectiva</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ratesTableBody">
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1118e5d60-1763296369291.png" alt="Foto de Miguel Fernández" class="w-10 h-10 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop'; this.onerror=null;">
+                                        <div>
+                                            <p class="font-medium text-text-primary">Miguel Fernández</p>
+                                            <p class="text-xs text-text-tertiary font-caption">ID: DRV001</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="data-value text-lg font-semibold text-primary">0,45</span></td>
+                                <td><span class="text-text-secondary">01/01/2026</span></td>
+                                <td><span class="badge badge-success">Activa</span></td>
+                                <td>
+                                    <button onclick="editRate('DRV001')" class="focus-ring rounded p-2 hover:bg-primary-50 transition-colors">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a431d16f-1766727675919.png" alt="Editar tarifa" class="w-5 h-5">
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10458bf2c-1763293523905.png" alt="Foto de Ana Martínez" class="w-10 h-10 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop'; this.onerror=null;">
+                                        <div>
+                                            <p class="font-medium text-text-primary">Ana Martínez</p>
+                                            <p class="text-xs text-text-tertiary font-caption">ID: DRV002</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="data-value text-lg font-semibold text-primary">0,42</span></td>
+                                <td><span class="text-text-secondary">01/01/2026</span></td>
+                                <td><span class="badge badge-success">Activa</span></td>
+                                <td>
+                                    <button onclick="editRate('DRV002')" class="focus-ring rounded p-2 hover:bg-primary-50 transition-colors">
+                                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a431d16f-1766727675919.png" alt="Editar tarifa" class="w-5 h-5">
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Bulk Update Section -->
+                <div class="bg-primary-50 rounded-lg p-6">
+                    <h4 class="text-lg font-heading font-semibold text-primary mb-4">Actualización Masiva de Tarifas</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="bulkRateValue" class="input-label">Nueva Tarifa (€/km)</label>
+                            <input type="number" id="bulkRateValue" class="input" placeholder="0,00" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label for="bulkEffectiveDate" class="input-label">Fecha Efectiva</label>
+                            <input type="date" id="bulkEffectiveDate" class="input" value="2026-01-01">
+                        </div>
+                        <div class="flex items-end">
+                            <button onclick="applyBulkRateUpdate()" class="btn btn-accent w-full flex items-center justify-center gap-2">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a7b82d76-1766574480888.png" alt="Icono de actualizar" class="w-5 h-5">
+                                <span>Aplicar a Todos</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Targets Tab -->
+            <div id="content-targets" class="tab-content hidden">
+                <div class="mb-6">
+                    <h3 class="text-xl font-heading font-semibold text-primary mb-2">Objetivos de Rendimiento</h3>
+                    <p class="text-text-secondary text-sm">Establezca metas operativas para el seguimiento del desempeño</p>
+                </div>
+
+                <form id="targetsForm" class="space-y-6">
+                    <!-- Monthly Targets -->
+                    <div class="bg-surface border border-border-light rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_102fc2109-1766488130363.png" alt="Icono de mes" class="w-6 h-6">
+                            Objetivos Mensuales
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="targetKilometers" class="input-label">Kilómetros Objetivo (km)</label>
+                                <input type="number" id="targetKilometers" class="input" value="50000" step="1000" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Meta mensual de distancia total</p>
+                            </div>
+                            <div>
+                                <label for="targetEmptyPercentage" class="input-label">Porcentaje Vacío Máximo (%)</label>
+                                <input type="number" id="targetEmptyPercentage" class="input" value="25" step="1" min="0" max="100">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Límite aceptable de viajes vacíos</p>
+                            </div>
+                            <div>
+                                <label for="targetRevenue" class="input-label">Ingresos Objetivo (€)</label>
+                                <input type="number" id="targetRevenue" class="input" value="22000" step="100" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Meta mensual de facturación</p>
+                            </div>
+                            <div>
+                                <label for="targetProfit" class="input-label">Beneficio Objetivo (€)</label>
+                                <input type="number" id="targetProfit" class="input" value="8000" step="100" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Meta mensual de beneficio neto</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Efficiency Targets -->
+                    <div class="bg-surface border border-border-light rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_15203a039-1766779473541.png" alt="Icono de eficiencia" class="w-6 h-6">
+                            Objetivos de Eficiencia
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="targetFuelConsumption" class="input-label">Consumo Objetivo (L/100km)</label>
+                                <input type="number" id="targetFuelConsumption" class="input" value="28.5" step="0.1" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Meta de eficiencia de combustible</p>
+                            </div>
+                            <div>
+                                <label for="targetTripEfficiency" class="input-label">Eficiencia de Viaje (%)</label>
+                                <input type="number" id="targetTripEfficiency" class="input" value="85" step="1" min="0" max="100">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Porcentaje de viajes con carga</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="flex justify-end gap-4">
+                        <button type="button" onclick="resetTargets()" class="btn btn-outline">
+                            <span>Restablecer Valores</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a4fc30aa-1767300172196.png" alt="Icono de guardar" class="w-5 h-5">
+                            <span>Guardar Objetivos</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Costs Tab -->
+            <div id="content-costs" class="tab-content hidden">
+                <div class="mb-6">
+                    <h3 class="text-xl font-heading font-semibold text-primary mb-2">Estructura de Costos</h3>
+                    <p class="text-text-secondary text-sm">Configure los costos fijos y variables para cálculos financieros</p>
+                </div>
+
+                <form id="costsForm" class="space-y-6">
+                    <!-- Fixed Costs -->
+                    <div class="bg-surface border border-border-light rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_190d9e4bc-1767300172228.png" alt="Icono de costos fijos" class="w-6 h-6">
+                            Costos Fijos Mensuales
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="fixedInsurance" class="input-label">Seguro (€)</label>
+                                <input type="number" id="fixedInsurance" class="input" value="800" step="10" min="0">
+                            </div>
+                            <div>
+                                <label for="fixedLease" class="input-label">Arrendamiento/Financiación (€)</label>
+                                <input type="number" id="fixedLease" class="input" value="1200" step="10" min="0">
+                            </div>
+                            <div>
+                                <label for="fixedMaintenance" class="input-label">Mantenimiento Programado (€)</label>
+                                <input type="number" id="fixedMaintenance" class="input" value="400" step="10" min="0">
+                            </div>
+                            <div>
+                                <label for="fixedAdministration" class="input-label">Gastos Administrativos (€)</label>
+                                <input type="number" id="fixedAdministration" class="input" value="300" step="10" min="0">
+                            </div>
+                            <div>
+                                <label for="fixedOther" class="input-label">Otros Costos Fijos (€)</label>
+                                <input type="number" id="fixedOther" class="input" value="200" step="10" min="0">
+                            </div>
+                            <div class="bg-primary-50 rounded-lg p-4 flex items-center justify-between">
+                                <span class="font-medium text-text-primary">Total Costos Fijos:</span>
+                                <span id="totalFixedCosts" class="data-value text-2xl font-bold text-primary">2.900 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Variable Costs -->
+                    <div class="bg-surface border border-border-light rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_176e998c0-1767300172178.png" alt="Icono de costos variables" class="w-6 h-6">
+                            Costos Variables por Kilómetro
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="variableTires" class="input-label">Neumáticos (€/km)</label>
+                                <input type="number" id="variableTires" class="input" value="0.03" step="0.001" min="0">
+                            </div>
+                            <div>
+                                <label for="variableMaintenance" class="input-label">Mantenimiento Variable (€/km)</label>
+                                <input type="number" id="variableMaintenance" class="input" value="0.02" step="0.001" min="0">
+                            </div>
+                            <div>
+                                <label for="variableTolls" class="input-label">Peajes Promedio (€/km)</label>
+                                <input type="number" id="variableTolls" class="input" value="0.08" step="0.001" min="0">
+                            </div>
+                            <div>
+                                <label for="variableOther" class="input-label">Otros Variables (€/km)</label>
+                                <input type="number" id="variableOther" class="input" value="0.02" step="0.001" min="0">
+                            </div>
+                            <div class="bg-primary-50 rounded-lg p-4 flex items-center justify-between md:col-span-2">
+                                <span class="font-medium text-text-primary">Total Costo Variable por km:</span>
+                                <span id="totalVariableCosts" class="data-value text-2xl font-bold text-primary">0,15 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Allocation Formula -->
+                    <div class="bg-accent-50 rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1d8404e80-1767106861542.png" alt="Icono de fórmula" class="w-6 h-6">
+                            Fórmula de Asignación de Costos
+                        </h4>
+                        <div class="bg-white rounded-lg p-4 border border-accent-200">
+                            <p class="text-sm text-text-secondary mb-3 font-caption">Cálculo automático del beneficio:</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="flex items-center gap-2">
+                                    <span class="font-medium text-primary">Ingresos:</span>
+                                    <span class="text-text-secondary">Kilómetros Cargados × Tarifa por km</span>
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <span class="font-medium text-primary">Costos Variables:</span>
+                                    <span class="text-text-secondary">Total Kilómetros × Costo Variable/km</span>
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <span class="font-medium text-primary">Costos Fijos Asignados:</span>
+                                    <span class="text-text-secondary">Costos Fijos Totales ÷ Días del Mes</span>
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <span class="font-medium text-primary">Costos Combustible:</span>
+                                    <span class="text-text-secondary">Suma de Repostajes del Período</span>
+                                </p>
+                                <div class="border-t border-accent-200 pt-2 mt-2">
+                                    <p class="flex items-center gap-2 font-semibold">
+                                        <span class="text-primary">Beneficio Neto:</span>
+                                        <span class="text-success">Ingresos - (Costos Variables + Costos Fijos + Combustible)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="flex justify-end gap-4">
+                        <button type="button" onclick="resetCosts()" class="btn btn-outline">
+                            <span>Restablecer Valores</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a4fc30aa-1767300172196.png" alt="Icono de guardar" class="w-5 h-5">
+                            <span>Guardar Estructura</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Fuel Tab -->
+            <div id="content-fuel" class="tab-content hidden">
+                <div class="mb-6">
+                    <h3 class="text-xl font-heading font-semibold text-primary mb-2">Parámetros de Combustible</h3>
+                    <p class="text-text-secondary text-sm">Configure los valores de referencia para cálculos de eficiencia</p>
+                </div>
+
+                <form id="fuelForm" class="space-y-6">
+                    <!-- Consumption Parameters -->
+                    <div class="bg-surface border border-border-light rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_18f68d990-1767300173307.png" alt="Icono de consumo" class="w-6 h-6">
+                            Parámetros de Consumo
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="standardConsumption" class="input-label">Consumo Estándar (L/100km)</label>
+                                <input type="number" id="standardConsumption" class="input" value="29.0" step="0.1" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Consumo de referencia del fabricante</p>
+                            </div>
+                            <div>
+                                <label for="maxConsumption" class="input-label">Consumo Máximo Aceptable (L/100km)</label>
+                                <input type="number" id="maxConsumption" class="input" value="32.0" step="0.1" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Límite superior para alertas</p>
+                            </div>
+                            <div>
+                                <label for="optimalConsumption" class="input-label">Consumo Óptimo (L/100km)</label>
+                                <input type="number" id="optimalConsumption" class="input" value="27.5" step="0.1" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Meta de eficiencia ideal</p>
+                            </div>
+                            <div>
+                                <label for="tankCapacity" class="input-label">Capacidad del Tanque (L)</label>
+                                <input type="number" id="tankCapacity" class="input" value="400" step="10" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Capacidad total del depósito</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Parameters -->
+                    <div class="bg-surface border border-border-light rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_167c8919f-1767300180515.png" alt="Icono de precio" class="w-6 h-6">
+                            Parámetros de Precio
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="averageFuelPrice" class="input-label">Precio Promedio Diesel (€/L)</label>
+                                <input type="number" id="averageFuelPrice" class="input" value="1.45" step="0.01" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Precio de referencia para estimaciones</p>
+                            </div>
+                            <div>
+                                <label for="fuelBudget" class="input-label">Presupuesto Mensual Combustible (€)</label>
+                                <input type="number" id="fuelBudget" class="input" value="6000" step="100" min="0">
+                                <p class="text-xs text-text-tertiary mt-1 font-caption">Límite presupuestario mensual</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Efficiency Calculation Preview -->
+                    <div class="bg-success-50 rounded-lg p-6">
+                        <h4 class="text-lg font-heading font-semibold text-primary mb-4 flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a7101a78-1767300174341.png" alt="Icono de cálculo" class="w-6 h-6">
+                            Vista Previa de Cálculos
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white rounded-lg p-4 border border-success-200">
+                                <p class="text-sm text-text-secondary mb-2 font-caption">Costo por 100km (Óptimo)</p>
+                                <p class="data-value text-2xl font-bold text-success">39,88 €</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 border border-success-200">
+                                <p class="text-sm text-text-secondary mb-2 font-caption">Costo por 100km (Estándar)</p>
+                                <p class="data-value text-2xl font-bold text-warning">42,05 €</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 border border-success-200">
+                                <p class="text-sm text-text-secondary mb-2 font-caption">Costo por 100km (Máximo)</p>
+                                <p class="data-value text-2xl font-bold text-error">46,40 €</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-text-tertiary mt-4 font-caption">
+                            * Cálculos basados en el precio promedio de diesel configurado
+                        </p>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="flex justify-end gap-4">
+                        <button type="button" onclick="resetFuel()" class="btn btn-outline">
+                            <span>Restablecer Valores</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a4fc30aa-1767300172196.png" alt="Icono de guardar" class="w-5 h-5">
+                            <span>Guardar Parámetros</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="manager_dashboard.html" class="card hover:shadow-lg transition-all group">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+                        <img src="https://images.unsplash.com/photo-1590084928815-dbc0ec326797" alt="Icono de panel" class="w-6 h-6">
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-semibold text-primary">Panel de Control</h4>
+                        <p class="text-sm text-text-secondary">Ver métricas y KPIs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="trip_management.html" class="card hover:shadow-lg transition-all group">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center group-hover:bg-accent-200 transition-colors">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1403dd4a2-1764846857059.png" alt="Icono de viajes" class="w-6 h-6">
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-semibold text-primary">Gestión de Viajes</h4>
+                        <p class="text-sm text-text-secondary">Registrar nuevos viajes</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="data_export_interface.html" class="card hover:shadow-lg transition-all group">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-secondary-100 rounded-lg flex items-center justify-center group-hover:bg-secondary-200 transition-colors">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10c43ff3f-1766600185244.png" alt="Icono de exportar" class="w-6 h-6">
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-semibold text-primary">Exportar Datos</h4>
+                        <p class="text-sm text-text-secondary">Descargar informes CSV</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal-overlay hidden">
+        <div class="modal max-w-md">
+            <div class="p-6">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-12 h-12 bg-warning-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a5ce2011-1767014146065.png" alt="Icono de alerta" class="w-6 h-6">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-semibold text-primary mb-2">Confirmar Cambios</h3>
+                        <p class="text-text-secondary" id="confirmMessage">¿Está seguro de que desea guardar estos cambios? Esta acción afectará los cálculos financieros del sistema.</p>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3">
+                    <button onclick="closeConfirmModal()" class="btn btn-outline">
+                        Cancelar
+                    </button>
+                    <button onclick="confirmSave()" class="btn btn-accent flex items-center gap-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_194c19073-1764742014007.png" alt="Icono de confirmar" class="w-5 h-5">
+                        <span>Confirmar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Rate Modal -->
+    <div id="editRateModal" class="modal-overlay hidden">
+        <div class="modal max-w-md">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-heading font-semibold text-primary">Editar Tarifa de Conductor</h3>
+                    <button onclick="closeEditRateModal()" class="focus-ring rounded p-1 hover:bg-primary-50 transition-colors">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16b05dca4-1765225109359.png" alt="Cerrar modal" class="w-6 h-6">
+                    </button>
+                </div>
+                <form id="editRateForm" class="space-y-4">
+                    <div>
+                        <label for="editDriverName" class="input-label">Conductor</label>
+                        <input type="text" id="editDriverName" class="input" readonly>
+                    </div>
+                    <div>
+                        <label for="editRateValue" class="input-label">Nueva Tarifa (€/km)</label>
+                        <input type="number" id="editRateValue" class="input" step="0.01" min="0" required>
+                    </div>
+                    <div>
+                        <label for="editEffectiveDate" class="input-label">Fecha Efectiva</label>
+                        <input type="date" id="editEffectiveDate" class="input" required>
+                    </div>
+                    <div class="flex justify-end gap-3 pt-4">
+                        <button type="button" onclick="closeEditRateModal()" class="btn btn-outline">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary flex items-center gap-2">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a4fc30aa-1767300172196.png" alt="Icono de guardar" class="w-5 h-5">
+                            <span>Guardar Cambios</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border-light mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-text-tertiary font-caption">© 2026 Transporte360. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <a href="javascript:void(0)" class="text-sm text-text-secondary hover:text-primary transition-colors">Ayuda</a>
+                    <a href="javascript:void(0)" class="text-sm text-text-secondary hover:text-primary transition-colors">Documentación</a>
+                    <a href="javascript:void(0)" class="text-sm text-text-secondary hover:text-primary transition-colors">Soporte</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check authentication
+        window.addEventListener('DOMContentLoaded', () => {
+            const user = sessionStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'login_authentication.html';
+                return;
+            }
+
+            const userData = JSON.parse(user);
+            if (userData.role !== 'manager') {
+                window.location.href = 'trip_management.html';
+                return;
+            }
+
+            document.getElementById('userName').textContent = userData.name;
+        });
+
+        // Logout handler
+        function handleLogout() {
+            sessionStorage.removeItem('user');
+            window.location.href = 'login_authentication.html';
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active', 'border-b-2', 'border-primary', 'text-primary');
+                button.classList.add('text-text-secondary');
+                button.setAttribute('aria-selected', 'false');
+                const icon = button.querySelector('img');
+                if (icon) {
+                    icon.src = icon.src.replace('color=%231E3A5F', 'color=%234A5568');
+                }
+            });
+
+            // Show selected tab content
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+
+            // Add active class to selected tab
+            const activeTab = document.getElementById(`tab-${tabName}`);
+            activeTab.classList.add('active', 'border-b-2', 'border-primary', 'text-primary');
+            activeTab.classList.remove('text-text-secondary');
+            activeTab.setAttribute('aria-selected', 'true');
+            const activeIcon = activeTab.querySelector('img');
+            if (activeIcon) {
+                activeIcon.src = activeIcon.src.replace('color=%234A5568', 'color=%231E3A5F');
+            }
+        }
+
+        // Message handling
+        function showMessage(message, type = 'success') {
+            const container = document.getElementById('messageContainer');
+            const content = document.getElementById('messageContent');
+            const icon = document.getElementById('messageIcon');
+            const text = document.getElementById('messageText');
+
+            container.classList.remove('hidden');
+            text.textContent = message;
+
+            if (type === 'success') {
+                content.className = 'p-4 rounded-lg flex items-start gap-3 bg-success-50 border border-success-200';
+                icon.src = 'https://api.iconify.design/mdi:check-circle.svg?color=%2338A169';
+                icon.alt = 'Icono de éxito';
+            } else {
+                content.className = 'p-4 rounded-lg flex items-start gap-3 bg-error-50 border border-error-200';
+                icon.src = 'https://api.iconify.design/mdi:alert-circle.svg?color=%23E53E3E';
+                icon.alt = 'Icono de error';
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(() => {
+                hideMessage();
+            }, 5000);
+        }
+
+        function hideMessage() {
+            document.getElementById('messageContainer').classList.add('hidden');
+        }
+
+        // Edit rate modal
+        let currentEditDriver = null;
+
+        function editRate(driverId) {
+            currentEditDriver = driverId;
+            const modal = document.getElementById('editRateModal');
+            const driverName = driverId === 'DRV001' ? 'Miguel Fernández' : 'Ana Martínez';
+            const currentRate = driverId === 'DRV001' ? '0.45' : '0.42';
+
+            document.getElementById('editDriverName').value = driverName;
+            document.getElementById('editRateValue').value = currentRate;
+            document.getElementById('editEffectiveDate').value = '2026-01-01';
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeEditRateModal() {
+            document.getElementById('editRateModal').classList.add('hidden');
+            currentEditDriver = null;
+        }
+
+        document.getElementById('editRateForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            closeEditRateModal();
+            showMessage('Tarifa actualizada correctamente', 'success');
+        });
+
+        // Bulk rate update
+        function applyBulkRateUpdate() {
+            const rateValue = document.getElementById('bulkRateValue').value;
+            const effectiveDate = document.getElementById('bulkEffectiveDate').value;
+
+            if (!rateValue || parseFloat(rateValue) <= 0) {
+                showMessage('Por favor, ingrese una tarifa válida', 'error');
+                return;
+            }
+
+            if (!effectiveDate) {
+                showMessage('Por favor, seleccione una fecha efectiva', 'error');
+                return;
+            }
+
+            showConfirmModal('¿Está seguro de que desea aplicar esta tarifa a todos los conductores?', () => {
+                showMessage('Tarifas actualizadas para todos los conductores', 'success');
+                document.getElementById('bulkRateValue').value = '';
+            });
+        }
+
+        // Confirmation modal
+        let confirmCallback = null;
+
+        function showConfirmModal(message, callback) {
+            document.getElementById('confirmMessage').textContent = message;
+            document.getElementById('confirmModal').classList.remove('hidden');
+            confirmCallback = callback;
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+            confirmCallback = null;
+        }
+
+        function confirmSave() {
+            if (confirmCallback) {
+                confirmCallback();
+            }
+            closeConfirmModal();
+        }
+
+        // Form submissions
+        document.getElementById('targetsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showConfirmModal('¿Desea guardar los nuevos objetivos de rendimiento?', () => {
+                showMessage('Objetivos actualizados correctamente', 'success');
+            });
+        });
+
+        document.getElementById('costsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showConfirmModal('¿Desea guardar la nueva estructura de costos? Esto afectará todos los cálculos financieros.', () => {
+                showMessage('Estructura de costos actualizada correctamente', 'success');
+            });
+        });
+
+        document.getElementById('fuelForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showConfirmModal('¿Desea guardar los nuevos parámetros de combustible?', () => {
+                showMessage('Parámetros de combustible actualizados correctamente', 'success');
+            });
+        });
+
+        // Reset functions
+        function resetTargets() {
+            if (confirm('¿Está seguro de que desea restablecer los valores predeterminados?')) {
+                document.getElementById('targetKilometers').value = '50000';
+                document.getElementById('targetEmptyPercentage').value = '25';
+                document.getElementById('targetRevenue').value = '22000';
+                document.getElementById('targetProfit').value = '8000';
+                document.getElementById('targetFuelConsumption').value = '28.5';
+                document.getElementById('targetTripEfficiency').value = '85';
+                showMessage('Valores restablecidos a configuración predeterminada', 'success');
+            }
+        }
+
+        function resetCosts() {
+            if (confirm('¿Está seguro de que desea restablecer los valores predeterminados?')) {
+                document.getElementById('fixedInsurance').value = '800';
+                document.getElementById('fixedLease').value = '1200';
+                document.getElementById('fixedMaintenance').value = '400';
+                document.getElementById('fixedAdministration').value = '300';
+                document.getElementById('fixedOther').value = '200';
+                document.getElementById('variableTires').value = '0.03';
+                document.getElementById('variableMaintenance').value = '0.02';
+                document.getElementById('variableTolls').value = '0.08';
+                document.getElementById('variableOther').value = '0.02';
+                updateCostTotals();
+                showMessage('Valores restablecidos a configuración predeterminada', 'success');
+            }
+        }
+
+        function resetFuel() {
+            if (confirm('¿Está seguro de que desea restablecer los valores predeterminados?')) {
+                document.getElementById('standardConsumption').value = '29.0';
+                document.getElementById('maxConsumption').value = '32.0';
+                document.getElementById('optimalConsumption').value = '27.5';
+                document.getElementById('tankCapacity').value = '400';
+                document.getElementById('averageFuelPrice').value = '1.45';
+                document.getElementById('fuelBudget').value = '6000';
+                updateFuelCalculations();
+                showMessage('Valores restablecidos a configuración predeterminada', 'success');
+            }
+        }
+
+        // Cost calculations
+        function updateCostTotals() {
+            const fixedCosts = [
+                parseFloat(document.getElementById('fixedInsurance').value) || 0,
+                parseFloat(document.getElementById('fixedLease').value) || 0,
+                parseFloat(document.getElementById('fixedMaintenance').value) || 0,
+                parseFloat(document.getElementById('fixedAdministration').value) || 0,
+                parseFloat(document.getElementById('fixedOther').value) || 0
+            ];
+
+            const variableCosts = [
+                parseFloat(document.getElementById('variableTires').value) || 0,
+                parseFloat(document.getElementById('variableMaintenance').value) || 0,
+                parseFloat(document.getElementById('variableTolls').value) || 0,
+                parseFloat(document.getElementById('variableOther').value) || 0
+            ];
+
+            const totalFixed = fixedCosts.reduce((sum, cost) => sum + cost, 0);
+            const totalVariable = variableCosts.reduce((sum, cost) => sum + cost, 0);
+
+            document.getElementById('totalFixedCosts').textContent = totalFixed.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' €';
+            document.getElementById('totalVariableCosts').textContent = totalVariable.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        }
+
+        // Fuel calculations
+        function updateFuelCalculations() {
+            const price = parseFloat(document.getElementById('averageFuelPrice').value) || 0;
+            const optimal = parseFloat(document.getElementById('optimalConsumption').value) || 0;
+            const standard = parseFloat(document.getElementById('standardConsumption').value) || 0;
+            const max = parseFloat(document.getElementById('maxConsumption').value) || 0;
+
+            const optimalCost = (optimal * price).toFixed(2);
+            const standardCost = (standard * price).toFixed(2);
+            const maxCost = (max * price).toFixed(2);
+
+            document.querySelectorAll('.data-value')[0].textContent = optimalCost + ' €';
+            document.querySelectorAll('.data-value')[1].textContent = standardCost + ' €';
+            document.querySelectorAll('.data-value')[2].textContent = maxCost + ' €';
+        }
+
+        // Add event listeners for real-time calculations
+        ['fixedInsurance', 'fixedLease', 'fixedMaintenance', 'fixedAdministration', 'fixedOther',
+         'variableTires', 'variableMaintenance', 'variableTolls', 'variableOther'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateCostTotals);
+        });
+
+        ['averageFuelPrice', 'optimalConsumption', 'standardConsumption', 'maxConsumption'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateFuelCalculations);
+        });
+
+        // Close modals on overlay click
+        document.getElementById('confirmModal').addEventListener('click', (e) => {
+            if (e.target.id === 'confirmModal') {
+                closeConfirmModal();
+            }
+        });
+
+        document.getElementById('editRateModal').addEventListener('click', (e) => {
+            if (e.target.id === 'editRateModal') {
+                closeEditRateModal();
+            }
+        });
+
+        // Initialize calculations
+        updateCostTotals();
+        updateFuelCalculations();
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
